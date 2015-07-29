@@ -220,6 +220,16 @@ static void process_ansi(FILE * fp)
 		}
 		buf[i] = (char)c;
 	}
+
+	/*
+		* The reset color ansi code (sgr0) can either be \033[0m or \033[m.  If
+		* the latter then, the character buffer's length is zero.
+		*/
+	if (0 == strnlen(buf, MAX_ANSIBUF)) {
+		set_ansi_attribute(0);
+		return;
+	}
+
 	/*
 	 * buf now contains a semicolon-separated list of decimal integers,
 	 * each indicating an attribute to apply.
