@@ -26,6 +26,7 @@ DEJATOOL += \
 	lib \
 	pgrep \
 	pkill \
+        plog \
 	ps \
 	pwdx \
 	uptime \
@@ -43,6 +44,7 @@ EXTRA_DIST = \
     lib.test/strutils.exp \
     pgrep.test/pgrep.exp \
     pkill.test/pkill.exp \
+    plog.test/plog.exp \
     pmap.test/pmap.exp \
     ps.test/ps_output.exp \
     ps.test/ps_personality.exp \

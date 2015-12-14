@@ -1,0 +1,18 @@
+
+make_testproc
+
+set plog "${topdir}plog"
+# Run plog with no arguments
+set test "plog no args"
+spawn $plog
+expect_pass "$test" "^\\s*Usage:\\s+\(lt-\)\?plog \\\[options\\\] pid\.\.\."
+
+# Run plog with pid 0 which is invalid
+set test "plog pid 0 should be invalid"
+spawn $plog 0
+expect_pass "$test" "\(lt-\)\?plog\: invalid process id\: 0"
+
+# Run plog with existing pid TODO
+
+# Cleanup
+kill_testproc

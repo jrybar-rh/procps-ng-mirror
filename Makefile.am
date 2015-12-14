@@ -23,6 +23,7 @@ bin_PROGRAMS = \
 	free \
 	pgrep \
 	pkill \
+	plog \
 	pmap \
 	pwdx \
 	tload \
@@ -40,6 +41,7 @@ dist_man_MANS = \
 	free.1 \
 	pgrep.1 \
 	pkill.1 \
+	plog.1 \
 	pmap.1 \
 	pwdx.1 \
 	sysctl.8 \
@@ -124,6 +126,8 @@ endif
 free_SOURCES = free.c lib/strutils.c lib/fileutils.c
 pgrep_SOURCES = pgrep.c lib/fileutils.c lib/nsutils.c
 pkill_SOURCES = pgrep.c lib/fileutils.c lib/nsutils.c
+plog_SOURCES = plog.c lib/fileutils.c
+plog_LDADD=
 pmap_SOURCES = pmap.c lib/fileutils.c
 pwdx_SOURCES = pwdx.c lib/fileutils.c
 pwdx_LDADD=

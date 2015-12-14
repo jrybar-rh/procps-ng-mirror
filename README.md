@@ -13,6 +13,7 @@ The following programs are found in procps:
 * *kill* - Send a signal to a process based on PID
 * *pgrep* - List processes based on name or other attributes
 * *pkill* - Send a signal to a process based on name or other attributes
+* *plog* - Report current log(s) path of a process
 * *pmap* - Report memory map of a process
 * *ps* - Report information of processes
 * *pwdx* - Report current directory of a process
@@ -48,5 +49,4 @@ page.
 ## Email List
 The email list for the developers and users of procps is found at
 http://www.freelists.org/archive/procps/
-This email list discusses the development of procps and is used by distributions
-to also forward or discuss bugs.
+This email list discusses the development of procps and is used by distributions to also forward or discuss bugs.

@@ -26,6 +26,7 @@ proc free_version {} { procps_v_version free }
 proc kill_version {} { procps_v_version kill }
 proc pgrep_version {} { procps_v_version pgrep }
 proc pkill_version {} { procps_v_version pkill }
+proc plog_version {} { procps_v_version plog }
 proc pmap_version {} { procps_v_version pmap }
 proc pwdx_version {} { procps_v_version pwdx }
 proc sysctl_version {} { procps_v_version sysctl }
