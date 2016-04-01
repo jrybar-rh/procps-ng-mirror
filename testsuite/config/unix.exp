@@ -28,7 +28,9 @@ proc pgrep_version {} { procps_v_version pgrep }
 proc pkill_version {} { procps_v_version pkill }
 proc pmap_version {} { procps_v_version pmap }
 proc pwdx_version {} { procps_v_version pwdx }
+if !CYGWIN
 proc sysctl_version {} { procps_v_version sysctl }
+endif
 proc uptime_version {} { procps_v_version uptime }
 proc vmstat_version {} { procps_v_version vmstat }
 proc w_version {} { procps_v_version w }

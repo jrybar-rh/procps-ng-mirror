@@ -1,5 +1,10 @@
 #AUTOMAKE_OPTIONS = subdir-objects
 
+CYGWINFLAGS =
+if CYGWIN
+  CYGWINFLAGS += -lintl
+endif
+
 AM_CPPFLAGS = \
 	-include $(top_builddir)/config.h \
 	-I$(top_srcdir)/include \
@@ -19,8 +24,10 @@ SUBDIRS = \
 AM_CFLAGS = -Iproc
 AM_LDFLAGS = ./proc/libprocps.la
 
+if !CYGWIN
 sbin_PROGRAMS = \
 	sysctl
+endif
 
 usrbin_exec_PROGRAMS = \
 	free \
@@ -37,14 +44,18 @@ dist_man_MANS = \
 	free.1 \
 	pgrep.1 \
 	pkill.1 \
+	tload.1 \
 	pmap.1 \
 	pwdx.1 \
-	sysctl.8 \
-	sysctl.conf.5 \
-	tload.1 \
 	uptime.1 \
 	vmstat.8 \
 	w.1
+
+if !CYGWIN
+dist_man_MANS += \
+	sysctl.8 \
+	sysctl.conf.5
+endif
 
 EXTRA_DIST = \
 	autogen.sh \
@@ -53,8 +64,12 @@ EXTRA_DIST = \
 	misc/git-version-gen \
 	Documentation/CodingStyle \
 	Documentation/TODO \
-	sysctl.conf \
 	$(DIST_MAN_POTS)
+
+if !CYGWIN
+EXTRA_DIST += \
+	sysctl.conf
+endif
 
 if BUILD_PIDOF
 usrbin_exec_PROGRAMS += pidof
@@ -65,7 +80,12 @@ else
 endif
 
 if BUILD_KILL
+if CYGWIN
+transform = s/^kill/prockill/; $(program_transform_name)
+usrbin_exec_PROGRAMS += kill
+else
 bin_PROGRAMS = kill
+endif
 dist_man_MANS += kill.1
 kill_SOURCES = skill.c $(top_srcdir)/lib/strutils.c $(top_srcdir)/lib/fileutils.c $(top_srcdir)/lib/nsutils.c
 else
@@ -74,15 +94,19 @@ endif
 
 if WITH_NCURSES
 usrbin_exec_PROGRAMS += \
-	slabtop \
 	watch
 dist_man_MANS += \
-	slabtop.1 \
 	watch.1
+if !CYGWIN
+usrbin_exec_PROGRAMS += \
+	slabtop
+dist_man_MANS += \
+	slabtop.1
 slabtop_SOURCES = slabtop.c $(top_srcdir)/lib/strutils.c $(top_srcdir)/lib/fileutils.c
 slabtop_LDADD = @NCURSES_LIBS@
+endif
 watch_SOURCES = watch.c $(top_srcdir)/lib/strutils.c $(top_srcdir)/lib/fileutils.c
-watch_LDADD = @WATCH_NCURSES_LIBS@
+watch_LDADD = @WATCH_NCURSES_LIBS@ $(CYGWINFLAGS)
 endif
 
 if BUILD_SKILL
@@ -105,14 +129,32 @@ pgrep_SOURCES = pgrep.c $(top_srcdir)/lib/fileutils.c $(top_srcdir)/lib/nsutils.
 pkill_SOURCES = pgrep.c $(top_srcdir)/lib/fileutils.c $(top_srcdir)/lib/nsutils.c
 pmap_SOURCES = pmap.c $(top_srcdir)/lib/fileutils.c
 pwdx_SOURCES = pwdx.c $(top_srcdir)/lib/fileutils.c
+if !CYGWIN
 sysctl_SOURCES = sysctl.c $(top_srcdir)/lib/fileutils.c
+endif
 tload_SOURCES = tload.c $(top_srcdir)/lib/strutils.c $(top_srcdir)/lib/fileutils.c
 uptime_SOURCES = uptime.c $(top_srcdir)/lib/fileutils.c
 vmstat_SOURCES = vmstat.c $(top_srcdir)/lib/strutils.c $(top_srcdir)/lib/fileutils.c
 w_SOURCES = w.c $(top_srcdir)/lib/fileutils.c
 
+skill_LDADD = $(CYGWINFLAGS)
+kill_LDADD = $(CYGWINFLAGS)
+free_LDADD = $(CYGWINFLAGS)
+pgrep_LDADD = $(CYGWINFLAGS)
+pkill_LDADD = $(CYGWINFLAGS)
+pidof_LDADD = $(CYGWINFLAGS)
+pmap_LDADD = $(CYGWINFLAGS)
+pwdx_LDADD = $(CYGWINFLAGS)
+snice_LDADD = $(CYGWINFLAGS)
+tload_LDADD = $(CYGWINFLAGS)
+uptime_LDADD = $(CYGWINFLAGS)
+w_LDADD = $(CYGWINFLAGS)
+vmstat_LDADD = $(CYGWINFLAGS)
+
 if EXAMPLE_FILES
+if !CYGWIN
 sysconf_DATA = sysctl.conf
+endif
 endif
 
 procpsngdir = $(docdir)

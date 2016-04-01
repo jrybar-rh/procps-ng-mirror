@@ -180,6 +180,7 @@ static void print_display_or_interface(const char *restrict host, int len, int r
 /* This routine prints either the hostname or the IP address of the remote */
 static void print_from(const utmp_t *restrict const u, const int ip_addresses, const int fromlen) {
 	char buf[fromlen + 1];
+#ifndef __CYGWIN__
 	char buf_ipv6[INET6_ADDRSTRLEN];
 	int len;
 	int32_t ut_addr_v6[4];      /* IP address of the remote host */
@@ -219,6 +220,9 @@ static void print_from(const utmp_t *restrict const u, const int ip_addresses, c
 	} else {  /* -i switch NOT used */
 		print_host(u->ut_host, UT_HOSTSIZE, fromlen);
 	}
+#else
+	print_host(u->ut_host, UT_HOSTSIZE, fromlen);
+#endif
 }
 
 

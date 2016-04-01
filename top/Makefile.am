@@ -1,3 +1,8 @@
+CYGWINFLAGS =
+if CYGWIN
+  CYGWINFLAGS += -lintl
+endif
+
 AM_CPPFLAGS = \
 	-include $(top_builddir)/config.h \
 	-I$(top_srcdir)/include \
@@ -17,10 +22,14 @@ top_SOURCES =  \
 	top_nls.c \
 	$(top_srcdir)/lib/fileutils.c
 
+if CYGWIN
+  top_SOURCES += $(top_srcdir)/lib/strverscmp.c
+endif
+
 dist_man_MANS = \
 	top.1
 
-top_LDADD = @NCURSES_LIBS@
+top_LDADD = @NCURSES_LIBS@ $(CYGWINFLAGS)
 endif
 
 EXTRA_DIST =

@@ -75,9 +75,11 @@ void init_Linux_version(void) {
 		"release %s=%d.%d.%d gives version code %d\n",
 		uts.release, x, y, z, LINUX_VERSION(x,y,z));
 #else
+#ifndef __CYGWIN__
 	fprintf(stderr,		/* *very* unlikely to happen by accident */
 		"%s=%d.%d.%d gives version code %d\n",
 		buf, x, y, z, LINUX_VERSION(x,y,z));
+#endif /* __CYGWIN__ */
 #endif /* __linux__ */
     linux_version_code = LINUX_VERSION(x, y, z);
 }
