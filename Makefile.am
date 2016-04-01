@@ -1,6 +1,7 @@
 CYGWINFLAGS =
 if CYGWIN
-  CYGWINFLAGS += -lintl
+CYGWINFLAGS += -lintl
+usrbin_exec_PROGRAMS =
 endif
 
 AM_CPPFLAGS = \
@@ -19,10 +20,20 @@ SUBDIRS = \
 	testsuite
 
 AM_CFLAGS = -Iproc
+AM_LDFLAGS = ./proc/libprocps.la $(CYGWINFLAGS)
 LDADD = ./proc/libprocps.la $(CYGWINFLAGS)
 
-transform = s/pscommand/ps/; $(program_transform_name)
+transform =
 
+if !CYGWIN
+transform += s/pscommand/ps/; $(program_transform_name)
+sbin_PROGRAMS = \
+	sysctl
+else
+transform += s/pscommand/procps/; $(program_transform_name)
+endif
+
+if !CYGWIN
 bin_PROGRAMS = \
 	ps/pscommand \
 	free \
@@ -34,9 +45,19 @@ bin_PROGRAMS = \
 	uptime \
 	vmstat \
 	w
-
-sbin_PROGRAMS = \
-	sysctl
+else
+usrbin_exec_PROGRAMS += \
+	ps/pscommand \
+	free \
+	pgrep \
+	pkill \
+	pmap \
+	pwdx \
+	tload \
+	uptime \
+	vmstat \
+	w
+endif
 
 lib_LTLIBRARIES = \
 	proc/libprocps.la
@@ -47,13 +68,17 @@ dist_man_MANS = \
 	pkill.1 \
 	pmap.1 \
 	pwdx.1 \
-	sysctl.8 \
-	sysctl.conf.5 \
-	tload.1 \
 	uptime.1 \
 	vmstat.8 \
 	w.1 \
 	ps/ps.1
+
+if !CYGWIN
+dist_man_MANS += \
+	tload.1 \
+	sysctl.8 \
+	sysctl.conf.5
+endif
 
 EXTRA_DIST = \
 	.version \
@@ -63,7 +88,6 @@ EXTRA_DIST = \
 	misc/git-version-gen \
 	Documentation/CodingStyle.md \
 	Documentation/TODO \
-	sysctl.conf \
 	ps/HACKING \
 	ps/regression \
 	$(DIST_MAN_POTS)
@@ -73,8 +97,17 @@ dist_procpsng_DATA = \
 	Documentation/bugs.md \
 	Documentation/FAQ
 
+if !CYGWIN
+EXTRA_DIST += \
+	sysctl.conf
+endif
+
 if BUILD_PIDOF
+if !CYGWIN
 bin_PROGRAMS += pidof
+else
+usrbin_exec_PROGRAMS += pidof
+endif
 dist_man_MANS += pidof.1
 pidof_SOURCES = pidof.c lib/fileutils.c
 else
@@ -82,7 +115,13 @@ else
 endif
 
 if BUILD_KILL
+if CYGWIN
+transform += s/^kill/prockill/; $(program_transform_name)
+usrbin_exec_PROGRAMS += kill
+else
 bin_PROGRAMS += kill
+endif
+
 dist_man_MANS += kill.1
 kill_SOURCES = skill.c lib/strutils.c lib/fileutils.c lib/nsutils.c
 else
@@ -90,16 +129,20 @@ else
 endif
 
 if WITH_NCURSES
+if !CYGWIN
 bin_PROGRAMS += \
 	slabtop \
 	watch \
 	top/top
+else
+usrbin_exec_PROGRAMS += \
+	watch \
+	top/top
+endif
+
 dist_man_MANS += \
-	slabtop.1 \
 	watch.1 \
 	top/top.1
-slabtop_SOURCES = slabtop.c lib/strutils.c lib/fileutils.c
-slabtop_LDADD = $(LDADD) @NCURSES_LIBS@
 watch_SOURCES = watch.c lib/strutils.c lib/fileutils.c
 watch_LDADD = @WATCH_NCURSES_LIBS@ $(CYGWINFLAGS)
 top_top_SOURCES = \
@@ -108,17 +151,29 @@ top_top_SOURCES = \
 	top/top_nls.h \
 	top/top_nls.c \
 	lib/fileutils.c
+
 if CYGWIN
-  top_top_SOURCES += lib/strverscmp.c
+top_top_SOURCES += lib/strverscmp.c
+else
+dist_man_MANS += \
+	slabtop.1
+slabtop_SOURCES = slabtop.c lib/strutils.c lib/fileutils.c
+slabtop_LDADD = $(LDADD) @NCURSES_LIBS@
 endif
 
 top_top_LDADD = $(LDADD) @NCURSES_LIBS@ $(DL_LIB)
 endif
 
 if BUILD_SKILL
+if !CYGWIN
 bin_PROGRAMS += \
 	skill \
 	snice
+else
+usrbin_exec_PROGRAMS += \
+	skill \
+	snice
+endif
 skill_SOURCES = skill.c lib/strutils.c lib/fileutils.c lib/nsutils.c
 snice_SOURCES = skill.c lib/strutils.c lib/fileutils.c lib/nsutils.c
 dist_man_MANS += \
@@ -130,13 +185,15 @@ else
 	snice.1
 endif
 
-free_SOURCES = free.c lib/strutils.c lib/fileutils.c
+free_SOURCES = free.c lib/strutils.c lib/fileutils.c 
 pgrep_SOURCES = pgrep.c lib/fileutils.c lib/nsutils.c
 pkill_SOURCES = pgrep.c lib/fileutils.c lib/nsutils.c
 pmap_SOURCES = pmap.c lib/fileutils.c
 pwdx_SOURCES = pwdx.c lib/fileutils.c
 pwdx_LDADD= $(CYGWINFLAGS)
+if !CYGWIN
 sysctl_SOURCES = sysctl.c lib/fileutils.c
+endif
 tload_SOURCES = tload.c lib/strutils.c lib/fileutils.c
 uptime_SOURCES = uptime.c lib/fileutils.c
 vmstat_SOURCES = vmstat.c lib/strutils.c lib/fileutils.c
@@ -248,8 +305,23 @@ lib_test_process_LDADD = $(CYGWINFLAGS)
 lib_test_strtod_nol_SOURCES = lib/test_strtod_nol.c lib/strutils.c
 lib_test_strtod_nol_LDADD = $(CYGWINFLAGS)
 
+skill_LDADD = $(CYGWINFLAGS)
+kill_LDADD = $(CYGWINFLAGS)
+free_LDADD = $(CYGWINFLAGS)
+pgrep_LDADD = $(CYGWINFLAGS)
+pkill_LDADD = $(CYGWINFLAGS)
+pidof_LDADD = $(CYGWINFLAGS)
+pmap_LDADD = $(CYGWINFLAGS)
+snice_LDADD = $(CYGWINFLAGS)
+tload_LDADD = $(CYGWINFLAGS)
+uptime_LDADD = $(CYGWINFLAGS)
+w_LDADD = $(CYGWINFLAGS)
+vmstat_LDADD = $(CYGWINFLAGS)
+
 if EXAMPLE_FILES
+if !CYGWIN
 sysconf_DATA = sysctl.conf
+endif
 endif
 
 BUILT_SOURCES = $(top_srcdir)/.version

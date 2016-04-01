@@ -612,7 +612,7 @@ LEAVE(0x160);
 /////////////////////////////////////////////////////////////////////////
 
 static void statm2proc(const char* s, proc_t *restrict P) {
-    int num;
+    int num __attribute__ ((unused));
     num = sscanf(s, "%ld %ld %ld %ld %ld %ld %ld",
 	   &P->size, &P->resident, &P->share,
 	   &P->trs, &P->lrs, &P->drs, &P->dt);
