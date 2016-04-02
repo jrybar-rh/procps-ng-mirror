@@ -116,7 +116,7 @@ endif
 
 if BUILD_KILL
 if CYGWIN
-transform += s/^kill/prockill/; $(program_transform_name)
+transform += ;s/^kill/prockill/; $(program_transform_name)
 usrbin_exec_PROGRAMS += kill
 else
 bin_PROGRAMS += kill

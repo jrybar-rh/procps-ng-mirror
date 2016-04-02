@@ -69,11 +69,7 @@ AC_FUNC_MMAP
 AC_FUNC_REALLOC
 AC_FUNC_STRTOD
 
-if test "x$host_os" = xcygwin; then
 usrbin_execdir='${exec_prefix}/bin'
-else
-usrbin_execdir='${exec_prefix}/usr/bin'
-fi
 AC_SUBST([usrbin_execdir])
 
 AM_GNU_GETTEXT_VERSION([0.14.1])
