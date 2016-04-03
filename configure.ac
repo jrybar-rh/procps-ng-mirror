@@ -75,12 +75,12 @@ AC_SUBST([usrbin_execdir])
 if test "x$host_os" = xcygwin
 then
   prefix=/usr
-  sysconfdir='${prefix}/etc'
-  libexecdir='${prefix}/lib'
-  localstatedir='${prefix}/var'
-  datadir='${prefix}/share'
-  mandir='${prefix}/share/man'
-  infodir='${prefix}/share/info'
+  sysconfdir=/etc
+  libexecdir=/usr/lib
+  localstatedir=/var
+  datadir=/usr/share
+  mandir=/usr/share/man
+  infodir=/usr/share/info
   AC_SUBST([prefix])
   AC_SUBST([sysconfdir])
   AC_SUBST([libexecdir])
