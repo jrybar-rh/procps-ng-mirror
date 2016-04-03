@@ -52,8 +52,6 @@ usrbin_exec_PROGRAMS += \
 	pgrep \
 	pkill \
 	pmap \
-	pwdx \
-	tload \
 	uptime \
 	vmstat \
 	w
@@ -67,7 +65,6 @@ dist_man_MANS = \
 	pgrep.1 \
 	pkill.1 \
 	pmap.1 \
-	pwdx.1 \
 	uptime.1 \
 	vmstat.8 \
 	w.1 \
@@ -75,6 +72,7 @@ dist_man_MANS = \
 
 if !CYGWIN
 dist_man_MANS += \
+	pwdx.1 \
 	tload.1 \
 	sysctl.8 \
 	sysctl.conf.5
@@ -189,9 +187,9 @@ free_SOURCES = free.c lib/strutils.c lib/fileutils.c
 pgrep_SOURCES = pgrep.c lib/fileutils.c lib/nsutils.c
 pkill_SOURCES = pgrep.c lib/fileutils.c lib/nsutils.c
 pmap_SOURCES = pmap.c lib/fileutils.c
+if !CYGWIN
 pwdx_SOURCES = pwdx.c lib/fileutils.c
 pwdx_LDADD= $(CYGWINFLAGS)
-if !CYGWIN
 sysctl_SOURCES = sysctl.c lib/fileutils.c
 endif
 tload_SOURCES = tload.c lib/strutils.c lib/fileutils.c
