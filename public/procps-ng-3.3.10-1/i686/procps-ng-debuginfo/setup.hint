@@ -1,0 +1,6 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: procps-ng
+sdesc: "Debug info for procps-ng"
+ldesc: "This package contains files necessary for debugging the
+procps-ng package with gdb."

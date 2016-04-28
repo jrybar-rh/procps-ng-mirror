@@ -1,0 +1,9 @@
+drwxr-xr-x    6 waynengx   waynengx         4096 Mar 21 13:58 .
+drwxr-xr-x    4 waynengx   waynengx         4096 Mar 21 13:56 ..
+drwxr-xr-x    2 waynengx   waynengx         4096 Mar 21 13:58 libprocps-ng-devel
+drwxr-xr-x    2 waynengx   waynengx         4096 Mar 21 13:58 libprocps-ng4
+drwxr-xr-x    2 waynengx   waynengx         4096 Mar 21 13:58 procps
+-rw-r--r--    1 waynengx   waynengx       634100 Mar 22 14:05 procps-ng-3.3.10-1-src.tar.xz
+-rw-r--r--    1 waynengx   waynengx       194764 Mar 22 14:05 procps-ng-3.3.10-1.tar.xz
+drwxr-xr-x    2 waynengx   waynengx         4096 Mar 21 13:58 procps-ng-debuginfo
+-rw-r--r--    1 waynengx   waynengx          518 Mar 22 14:05 setup.hint

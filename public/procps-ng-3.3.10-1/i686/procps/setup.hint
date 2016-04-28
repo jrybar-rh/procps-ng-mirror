@@ -1,0 +1,7 @@
+category: _obsolete
+requires: procps-ng
+sdesc: "Obsoleted by procps-ng"
+ldesc: "The procps package is obsolete.  Selecting this package for
+installation will cause the procps-ng package, which replaces this
+one, to be installed instead."
+external-source: procps-ng

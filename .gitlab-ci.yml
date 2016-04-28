@@ -9,3 +9,11 @@ Testsuites:
   tags:
   except:
   - tags
+pages:
+  script:
+  - echo "Building website"
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
