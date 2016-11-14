@@ -5300,10 +5300,11 @@ numa_nope:
          prT(bfT(6), mkS(used));  prT(bfT(7), mkM(available));
          show_special(0, fmtmk(N_unq(MEMORY_lines_fmt)
             , scT(label), N_txt(WORD_abv_mem_txt), bfT(0), bfT(1), bfT(2), bfT(3)
+            , scT(label), N_txt(WORD_abv_arc_txt), bfT(0), bfT(1), bfT(2), bfT(3), bfT(3), bfT(3)
             , scT(label), N_txt(WORD_abv_swp_txt), bfT(4), bfT(5), bfT(6), bfT(7)
             , N_txt(WORD_abv_mem_txt)));
       }
-      Msg_row += 2;
+      Msg_row += 3;
     #undef bfT
     #undef scT
     #undef mkM

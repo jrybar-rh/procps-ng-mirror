@@ -484,6 +484,7 @@ static void build_norm_nlstab (void) {
    .                 please make both translations exactly 4 characters,
    .                 padding with extra spaces as necessary */
    Norm_nlstab[WORD_abv_mem_txt] = _("Mem ");
+   Norm_nlstab[WORD_abv_arc_txt] = _("ARC ");
    Norm_nlstab[WORD_abv_swp_txt] = _("Swap");
 }
 
@@ -654,6 +655,7 @@ static void build_uniq_nlstab (void) {
 
    Uniq_nlstab[MEMORY_lines_fmt] = _(""
       "%s %s:~3 %9.9s~2total,~3 %9.9s~2free,~3 %9.9s~2used,~3 %9.9s~2buff/cache~3\n"
+      "%s %s:~3 %9.9s~2total,~3 %9.9s~2MFU,~3 %9.9s~2MRU,~3 %9.9s~2anon,~3 %9.9s~2header,~3 %9.9s~2other~3\n"
       "%s %s:~3 %9.9s~2total,~3 %9.9s~2free,~3 %9.9s~2used.~3 %9.9s~2avail %s~3\n");
 
    Uniq_nlstab[YINSP_hdsels_fmt] = _(""
