@@ -613,7 +613,7 @@ static int one_proc(proc_t * p)
 					total_private_dirty += smap_value;
 					continue;
 				}
-				if (strcmp("Swap", smap_key) == 0) {
+				if ((strcmp("Swap", smap_key) == 0) && (strlen(smap_key)==4)) {
 					/*doesn't matter as long as last */
 					printf("%0*" KLF "x %*lu %*llu %*llu %*s %s\n",
 					       maxw1, start,
