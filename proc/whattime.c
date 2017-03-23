@@ -146,11 +146,9 @@ char *sprint_uptime(int human_readable) {
       comma += 1;
     }
 
-    if (upminutes) {
-      pos += sprintf(buf + pos, "%s%d %s", comma > 0 ? ", " : "", upminutes,
-                     upminutes > 1 ? "minutes" : "minute");
-      comma += 1;
-    }
+    pos += sprintf(buf + pos, "%s%d %s", comma > 0 ? ", " : "", upminutes,
+                    upminutes != 1 ? "minutes" : "minute");
+    comma += 1;
   }
 
   return buf;
