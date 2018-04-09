@@ -914,7 +914,8 @@ int main (int argc, char **argv)
 	textdomain(PACKAGE);
 	atexit(close_stdout);
 
-	opt_ns_pid = getpid();
+	if (i_am_pkill)
+		opt_ns_pid = getpid();
 	parse_opts (argc, argv);
 
 	procs = select_procs (&num);
