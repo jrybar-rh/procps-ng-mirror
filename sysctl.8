@@ -11,7 +11,7 @@
 sysctl \- configure kernel parameters at runtime
 .SH SYNOPSIS
 .B sysctl
-[\fIoptions\fR] [\fIvariable\fR[\fB=\fIvalue\fR]] [...]
+[\fIoptions\fR] [\fIvariable\fR[\fB=\fI[+|-]value\fR]] [...]
 .br
 .B sysctl \-p
 [\fIfile\fR or \fIregexp\fR] [...]
@@ -39,6 +39,9 @@ is the key and
 is the value to set it to.  If the value contains quotes or characters
 which are parsed by the shell, you may need to enclose the value in double
 quotes.
+If the value starts with '<' then set its minimum value, i.e. if the current value
+is higher than what is requested, then don't change it. If the value starts with '>'
+its the opposite. 
 .TP
 \fB\-n\fR, \fB\-\-values\fR
 Use this option to disable printing of the key name when printing values.

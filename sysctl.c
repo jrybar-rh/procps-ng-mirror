@@ -468,6 +468,30 @@ static int WriteSetting(const char *setting)
 		if (!ignore_failure && errno != ENOENT)
 		    rc = -1;
 	} else {
+                /* Handle min/max values */
+                bool min_value = (*value == '<');
+                bool max_value = (*value == '>');
+
+                if (min_value || max_value) {
+                    int cur_value;
+                    value++;
+                    FILE *rp;
+                    rp = fprocopen(tmpname, "r");
+                    if (!rp) {
+			xerr(EXIT_FAILURE, _("reading key \"%s\""), tmpname);
+                    }
+
+                    if (fscanf(rp, "%d", &cur_value) != 1) {
+                        close_stream(rp);
+			xerr(EXIT_FAILURE, _("reading key \"%s\""), tmpname);
+                    }
+                    close_stream(rp);
+
+                    if ((max_value && atoi(value) < cur_value) || (min_value && atoi(value) > cur_value)) {
+                        goto out;
+                    }
+                }
+
 		rc = fprintf(fp, "%s\n", value);
 		if (0 < rc)
 			rc = 0;
