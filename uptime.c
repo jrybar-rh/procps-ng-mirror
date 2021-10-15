@@ -117,7 +117,7 @@ int main(int argc, char **argv)
         usage(stderr);
 
     if (p)
-        printf("%s\n", procps_uptime_sprint_pretty());
+        printf("%s\n", procps_uptime_sprint_pretty(p_short));
     else
         printf("%s\n", procps_uptime_sprint());
     return EXIT_SUCCESS;

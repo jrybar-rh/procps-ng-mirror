@@ -149,7 +149,7 @@ PROCPS_EXPORT char *procps_uptime_sprint(void)
  *
  * Returns a statically allocated buffer or NULL on error
  */
-PROCPS_EXPORT char *procps_uptime_sprint_pretty(void)
+PROCPS_EXPORT char *procps_uptime_sprint_pretty(int short_format)
 {
     int updecades, upyears, upweeks, updays, uphours, upminutes;
     int pos = 3;
