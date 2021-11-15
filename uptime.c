@@ -61,6 +61,7 @@ static void __attribute__ ((__noreturn__)) usage(FILE * out)
     fprintf(out, _(" %s [options]\n"), program_invocation_short_name);
     fputs(USAGE_OPTIONS, out);
     fputs(_(" -p, --pretty   show uptime in pretty format\n"), out);
+    fputs(_(" -S, --short    use short time units in pretty format\n"), out);
     fputs(USAGE_HELP, out);
     fputs(_(" -s, --since    system up since\n"), out);
     fputs(USAGE_VERSION, out);
@@ -72,9 +73,11 @@ static void __attribute__ ((__noreturn__)) usage(FILE * out)
 int main(int argc, char **argv)
 {
     int c, p = 0;
+    int p_short = 0;
 
     static const struct option longopts[] = {
         {"pretty", no_argument, NULL, 'p'},
+        {"short", no_argument, NULL, 'S'},
         {"help", no_argument, NULL, 'h'},
         {"since", no_argument, NULL, 's'},
         {"version", no_argument, NULL, 'V'},
@@ -89,10 +92,14 @@ int main(int argc, char **argv)
     textdomain(PACKAGE);
     atexit(close_stdout);
 
-    while ((c = getopt_long(argc, argv, "phsV", longopts, NULL)) != -1)
+    while ((c = getopt_long(argc, argv, "pShsV", longopts, NULL)) != -1)
         switch (c) {
         case 'p':
             p = 1;
+            break;
+        case 'S':
+            p = 1; // --short implies pretty
+            p_short = 1;
             break;
         case 'h':
             usage(stdout);
@@ -110,7 +117,7 @@ int main(int argc, char **argv)
         usage(stderr);
 
     if (p)
-        printf("%s\n", procps_uptime_sprint_short());
+        printf("%s\n", procps_uptime_sprint_pretty(p_short));
     else
         printf("%s\n", procps_uptime_sprint());
     return EXIT_SUCCESS;
