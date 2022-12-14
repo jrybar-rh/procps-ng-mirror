@@ -159,6 +159,9 @@ or
 context.  In
 .BR pkill 's
 context the short option is disabled to avoid accidental usage of the option.
+
+With \-\-newest or \-\-oldest, report processes which match all
+given criteria except the newest or the oldest process.  See Example 6.
 .TP
 \fB\-w\fR, \fB\-\-lightweight\fR\fR
 Shows all thread ids instead of pids in
@@ -271,6 +274,16 @@ $ renice +4 $(pgrep chrome)
 Example 5: Wait for a process with a known PID to finish:
 .IP
 $ echo ${PID} | pidwait -F -
+.PP
+Example 6: List all processes attached to
+.B pts/0
+except the oldest one:
+.IP
+$ pgrep -t pts/0 -v -o
+
+If there is only one process (or no processes) attached to pts/0,
+.B pgrep
+will report nothing and give exit status 1.
 .SH "EXIT STATUS"
 .TP
 .B 0
@@ -307,15 +320,6 @@ The
 .B \-O \-\-older
 option will silently fail if \fI/proc\fR is mounted with the \fIsubset=pid\fR option.
 .SH BUGS
-The options
-.B \-n
-and
-.B \-o
-and
-.B \-v
-can not be combined.  Let
-me know if you need to do this.
-.PP
 Defunct processes are reported.
 .PP
 .B pidwait
