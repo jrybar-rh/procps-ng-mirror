@@ -1297,18 +1297,15 @@ int main(int argc, char *argv[])
 			output_lowheader(last_tick - t, cmdexit);
 		}
 
-		if (cmdexit)
-		{
+		if (cmdexit) {
 			if (flags & WATCH_BEEP)
 				beep();  // doesn't require refresh()
-			if (flags & WATCH_ERREXIT)
-			{
+			if (flags & WATCH_ERREXIT) {
 				// TODO: Hard to see when there's cmd output around it. Add
 				// spaces or move to lowheader.
 				mvaddstr(height-1, 0, _("command exit with a non-zero status, press a key to exit"));
 				i = fcntl(STDIN_FILENO, F_GETFL);
-				if (i >= 0 && fcntl(STDIN_FILENO, F_SETFL, i|O_NONBLOCK) >= 0)
-				{
+				if (i >= 0 && fcntl(STDIN_FILENO, F_SETFL, i|O_NONBLOCK) >= 0) {
 					while (getchar() != EOF) ;
 					fcntl(STDIN_FILENO, F_SETFL, i);
 				}
@@ -1319,19 +1316,15 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			if (flags & WATCH_OKEXIT)
-			{
-				if (flags & WATCH_NOKEYPR)
-				{
+			if (flags & WATCH_OKEXIT) {
+				if (flags & WATCH_NOKEYPR) {
 					mvaddstr(height-1, 0, _("command exit with a zero status"));
 					refresh();
 				}
-				else
-				{
+				else {
 					mvaddstr(height-1, 0, _("command exit with a zero status, press a key to exit"));
 					i = fcntl(STDIN_FILENO, F_GETFL);
-					if (i >= 0 && fcntl(STDIN_FILENO, F_SETFL, i|O_NONBLOCK) >= 0)
-					{
+					if (i >= 0 && fcntl(STDIN_FILENO, F_SETFL, i|O_NONBLOCK) >= 0) {
 						while (getchar() != EOF) ;
 						fcntl(STDIN_FILENO, F_SETFL, i);
 					}
