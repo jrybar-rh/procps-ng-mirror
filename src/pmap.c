@@ -184,6 +184,7 @@ static void discover_shm_minor(void)
 		char perms[32];
 		/* to clean up unprintables */
 		char *tmp;
+		size_t len;
 		unsigned long start, end;
 		unsigned long long file_offset, inode;
 		unsigned dev_major, dev_minor;
@@ -194,10 +195,15 @@ static void discover_shm_minor(void)
 		if (tmp)
 			*tmp = '\0';
 		tmp = mapbuf_b;
+		len = strlen(tmp);
 		while (*tmp) {
-			if (!isprint(*tmp))
+			int n = mblen(tmp, len);
+			if (n <= 0) {
 				*tmp = '?';
-			tmp++;
+				n = 1;
+			}
+			tmp += n;
+			len -= n;
 		}
 		if (start > (unsigned long)addr)
 			continue;
@@ -604,6 +610,7 @@ static int one_proc (struct pids_stack *p)
 	while (fgets(mapbuf, sizeof mapbuf, fp)) {
 		/* to clean up unprintables */
 		char *tmp;
+		size_t len;
 		unsigned long long file_offset, inode;
 		unsigned dev_major, dev_minor;
 		unsigned long long smap_value;
@@ -663,10 +670,15 @@ static int one_proc (struct pids_stack *p)
 		if (tmp)
 			*tmp = '\0';
 		tmp = mapbuf;
+		len = strlen(tmp);
 		while (*tmp) {
-			if (!isprint(*tmp))
+			int n = mblen(tmp, len);
+			if (n <= 0) {
 				*tmp = '?';
-			tmp++;
+				n = 1;
+			}
+			tmp += n;
+			len -= n;
 		}
 
 		diff = end - start_To_Avoid_Warning;
