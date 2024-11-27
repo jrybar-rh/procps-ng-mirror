@@ -345,6 +345,15 @@ AC_ARG_ENABLE([w],
 )
 AM_CONDITIONAL(BUILD_W, test "x$enable_w" = xyes)
 
+AC_ARG_ENABLE([pidwait],
+  AS_HELP_STRING([--disable-pidwait], [do not build pidwait]),
+  [], [enable_pidwait=yes]
+)
+if test "$enable_pidwait" = "yes"; then
+  AC_DEFINE([ENABLE_PIDWAIT], [1], [Enable pidwait])
+fi
+AM_CONDITIONAL(BUILD_PIDWAIT, test "x$enable_pidwait" = xyes)
+
 AM_CONDITIONAL(LINUX, test "x$host_os" = xlinux-gnu)
 AM_CONDITIONAL(CYGWIN, test "x$host_os" = xcygwin)
 
@@ -430,7 +439,7 @@ then
 fi
 AC_SUBST(DEJAGNU)
 
-AC_CHECK_FUNCS([__fpending alarm atexit dup2 clock_gettime gethostname getpagesize gettimeofday iswprint memchr memmove memset mkdir nl_langinfo putenv regcomp rpmatch select setlocale sigabbrev_np strcasecmp strchr strcspn strdup strerror strncasecmp strndup strpbrk strrchr strspn strstr strtol strtoul strverscmp utmpname wcwidth])
+AC_CHECK_FUNCS([__fpending alarm atexit dup2 clock_gettime gethostname getpagesize gettimeofday iswprint memchr memmove memset mkdir nl_langinfo pidfd_open putenv regcomp rpmatch select setlocale sigabbrev_np strcasecmp strchr strcspn strdup strerror strncasecmp strndup strpbrk strrchr strspn strstr strtol strtoul strverscmp utmpname wcwidth])
 
 AC_CONFIG_FILES([Makefile
                  local/Makefile
