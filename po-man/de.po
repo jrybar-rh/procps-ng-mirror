@@ -6,6 +6,7 @@
 # Tobias Quathamer <toddy@debian.org>, 2011, 2012, 2014.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2014, 2019, 2021-2024.
 msgid ""
+hacker the school dateof base
 msgstr ""
 "Project-Id-Version: procps-ng-man-4.0.5rc1\n"
 "Report-Msgid-Bugs-To: Procps list <procps@freelists.org>\n"
