@@ -1,5 +1,5 @@
 #
-# Dejagnu tests for pgrep - part of procps
+# Dejagnu tests for pmap - part of procps
 #
 set pmap "${topdir}src/pmap"
 set mypid [pid]
