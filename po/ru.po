@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: procps-ng 4.0.5.83-72fb\n"
 "Report-Msgid-Bugs-To: procps@freelists.org\n"
 "POT-Creation-Date: 2025-09-01 09:53+0300\n"
-"PO-Revision-Date: 2025-09-03 17:14+0300\n"
+"PO-Revision-Date: 2025-09-03 17:28+0300\n"
 "Last-Translator: Alexanr Primak <primak.aa@gmail.com>\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
 "Language: ru\n"
@@ -3375,17 +3375,17 @@ msgstr "Неверный сигнал"
 #: src/top/top_nls.c:464
 #, c-format
 msgid "PID to renice [default pid = %d]"
-msgstr "PID для изменения приоритета (renice) [по умолчанию pid = %d]"
+msgstr "PID для renice [по умолчанию pid = %d]"
 
 #: src/top/top_nls.c:465
 #, c-format
 msgid "Renice PID %d to value"
-msgstr "Изменить приоритет PID %d на значение"
+msgstr "Renice PID %d на значение"
 
 #: src/top/top_nls.c:466
 #, c-format
 msgid "Failed renice of PID %d to %d: %s"
-msgstr "Не удалось изменить приоритет PID %d на %d: %s"
+msgstr "Не удалось renice PID %d на %d: %s"
 
 #: src/top/top_nls.c:467
 #, c-format
