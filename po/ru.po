@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: procps-ng 4.0.5.83-72fb\n"
 "Report-Msgid-Bugs-To: procps@freelists.org\n"
 "POT-Creation-Date: 2025-09-01 09:53+0300\n"
-"PO-Revision-Date: 2025-09-03 17:28+0300\n"
+"PO-Revision-Date: 2025-09-03 17:41+0300\n"
 "Last-Translator: Alexanr Primak <primak.aa@gmail.com>\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
 "Language: ru\n"
@@ -183,11 +183,11 @@ msgstr "Память:"
 
 #: src/free.c:358
 msgid "Low:"
-msgstr "Low:"
+msgstr ""
 
 #: src/free.c:364
 msgid "High:"
-msgstr "High:"
+msgstr ""
 
 #: src/free.c:371
 msgid "Swap:"
@@ -982,7 +982,7 @@ msgstr "фатальная ошибка библиотеки, поиск self\n"
 #.
 #: src/ps/global.c:549
 msgid "help"
-msgstr "help"
+msgstr ""
 
 #. Translation Notes for ps Help #1 ---------------------------------
 #. .  This next group of lines represents 6 pairs of words + abbreviations
@@ -1007,56 +1007,56 @@ msgstr "help"
 #. Translation Hint, Pair #1
 #: src/ps/help.c:67
 msgid "simple"
-msgstr "simple"
+msgstr ""
 
 #: src/ps/help.c:67
 msgid "s"
-msgstr "s"
+msgstr ""
 
 #. Translation Hint, Pair #2
 #: src/ps/help.c:69
 msgid "list"
-msgstr "list"
+msgstr ""
 
 #: src/ps/help.c:69
 msgid "l"
-msgstr "l"
+msgstr ""
 
 #. Translation Hint, Pair #3
 #: src/ps/help.c:71
 msgid "output"
-msgstr "output"
+msgstr ""
 
 #: src/ps/help.c:71
 msgid "o"
-msgstr "o"
+msgstr ""
 
 #. Translation Hint, Pair #4
 #: src/ps/help.c:73
 msgid "threads"
-msgstr "threads"
+msgstr ""
 
 #: src/ps/help.c:73
 msgid "t"
-msgstr "t"
+msgstr ""
 
 #. Translation Hint, Pair #5
 #: src/ps/help.c:75
 msgid "misc"
-msgstr "misc"
+msgstr ""
 
 #: src/ps/help.c:75
 msgid "m"
-msgstr "m"
+msgstr ""
 
 #. Translation Hint, Pair #6
 #: src/ps/help.c:77
 msgid "all"
-msgstr "all"
+msgstr ""
 
 #: src/ps/help.c:77
 msgid "a"
-msgstr "a"
+msgstr ""
 
 #: src/ps/help.c:98
 #, c-format
@@ -2430,7 +2430,7 @@ msgstr "запись в tty не удалась"
 #. Translation Hint: maximum 'PID' = 5
 #: src/top/top_nls.c:134
 msgid "PID"
-msgstr "PID"
+msgstr ""
 
 #: src/top/top_nls.c:135
 msgid "Process Id"
@@ -2439,7 +2439,7 @@ msgstr "ID Процесса"
 #. Translation Hint: maximum 'PPID' = 5
 #: src/top/top_nls.c:137
 msgid "PPID"
-msgstr "PPID"
+msgstr ""
 
 #: src/top/top_nls.c:138
 msgid "Parent Process pid"
@@ -2448,7 +2448,7 @@ msgstr "PID Родит процесса"
 #. Translation Hint: maximum 'UID' = 5 +
 #: src/top/top_nls.c:140
 msgid "UID"
-msgstr "UID"
+msgstr ""
 
 #: src/top/top_nls.c:141
 msgid "Effective User Id"
@@ -2457,7 +2457,7 @@ msgstr "Дейст ID Пользоват"
 #. Translation Hint: maximum 'USER' = 8 +
 #: src/top/top_nls.c:143 src/w.c:1132
 msgid "USER"
-msgstr "USER"
+msgstr ""
 
 #: src/top/top_nls.c:144
 msgid "Effective User Name"
@@ -2466,7 +2466,7 @@ msgstr "Дейст Имя Пользоват"
 #. Translation Hint: maximum 'RUID' = 5 +
 #: src/top/top_nls.c:146
 msgid "RUID"
-msgstr "RUID"
+msgstr ""
 
 #: src/top/top_nls.c:147
 msgid "Real User Id"
@@ -2475,7 +2475,7 @@ msgstr "Реал ID Пользоват"
 #. Translation Hint: maximum 'RUSER' = 8 +
 #: src/top/top_nls.c:149
 msgid "RUSER"
-msgstr "RUSER"
+msgstr ""
 
 #: src/top/top_nls.c:150
 msgid "Real User Name"
@@ -2484,7 +2484,7 @@ msgstr "Реал Имя Пользоват"
 #. Translation Hint: maximum 'SUID' = 5 +
 #: src/top/top_nls.c:152
 msgid "SUID"
-msgstr "SUID"
+msgstr ""
 
 #: src/top/top_nls.c:153
 msgid "Saved User Id"
@@ -2493,7 +2493,7 @@ msgstr "Сохр ID Пользоват"
 #. Translation Hint: maximum 'SUSER' = 8 +
 #: src/top/top_nls.c:155
 msgid "SUSER"
-msgstr "SUSER"
+msgstr ""
 
 #: src/top/top_nls.c:156
 msgid "Saved User Name"
@@ -2502,7 +2502,7 @@ msgstr "Сохр Имя Пользоват"
 #. Translation Hint: maximum 'GID' = 5 +
 #: src/top/top_nls.c:158
 msgid "GID"
-msgstr "GID"
+msgstr ""
 
 #: src/top/top_nls.c:159
 msgid "Group Id"
@@ -2511,7 +2511,7 @@ msgstr "ID Группы"
 #. Translation Hint: maximum 'GROUP' = 8 +
 #: src/top/top_nls.c:161
 msgid "GROUP"
-msgstr "GROUP"
+msgstr ""
 
 #: src/top/top_nls.c:162
 msgid "Group Name"
@@ -2520,7 +2520,7 @@ msgstr "Имя Группы"
 #. Translation Hint: maximum 'PGRP' = 5
 #: src/top/top_nls.c:164
 msgid "PGRP"
-msgstr "PGRP"
+msgstr ""
 
 #: src/top/top_nls.c:165
 msgid "Process Group Id"
@@ -2529,7 +2529,7 @@ msgstr "ID Группы Процессов"
 #. Translation Hint: maximum 'TTY' = 8 +
 #: src/top/top_nls.c:167
 msgid "TTY"
-msgstr "TTY"
+msgstr ""
 
 #: src/top/top_nls.c:168
 msgid "Controlling Tty"
@@ -2538,7 +2538,7 @@ msgstr "Управляющий Tty"
 #. Translation Hint: maximum 'TPGID' = 5
 #: src/top/top_nls.c:170
 msgid "TPGID"
-msgstr "TPGID"
+msgstr ""
 
 #: src/top/top_nls.c:171
 msgid "Tty Process Grp Id"
@@ -2547,7 +2547,7 @@ msgstr "ID Груп Процесов Tty"
 #. Translation Hint: maximum 'SID' = 5
 #: src/top/top_nls.c:173
 msgid "SID"
-msgstr "SID"
+msgstr ""
 
 #: src/top/top_nls.c:174
 msgid "Session Id"
@@ -2556,7 +2556,7 @@ msgstr "ID Сессии"
 #. Translation Hint: maximum 'PR' = 3
 #: src/top/top_nls.c:176
 msgid "PR"
-msgstr "PR"
+msgstr ""
 
 #: src/top/top_nls.c:177
 msgid "Priority"
@@ -2565,7 +2565,7 @@ msgstr "Приоритет"
 #. Translation Hint: maximum 'NI' = 3
 #: src/top/top_nls.c:179
 msgid "NI"
-msgstr "NI"
+msgstr ""
 
 #: src/top/top_nls.c:180
 msgid "Nice Value"
@@ -2574,7 +2574,7 @@ msgstr "Значение Nice"
 #. Translation Hint: maximum 'nTH' = 3
 #: src/top/top_nls.c:182
 msgid "nTH"
-msgstr "nTH"
+msgstr ""
 
 #: src/top/top_nls.c:183
 msgid "Number of Threads"
@@ -2583,7 +2583,7 @@ msgstr "Количество Потоков"
 #. Translation Hint: maximum 'P' = 2
 #: src/top/top_nls.c:185
 msgid "P"
-msgstr "P"
+msgstr ""
 
 #: src/top/top_nls.c:186
 msgid "Last Used Cpu (SMP)"
@@ -2593,7 +2593,7 @@ msgstr "Посл Исп ЦП (SMP)"
 #: src/top/top_nls.c:188
 #, c-format
 msgid "%CPU"
-msgstr "%CPU"
+msgstr ""
 
 #: src/top/top_nls.c:189
 msgid "CPU Usage"
@@ -2602,7 +2602,7 @@ msgstr "Использование ЦП"
 #. Translation Hint: maximum '' = 6
 #: src/top/top_nls.c:191
 msgid "TIME"
-msgstr "TIME"
+msgstr ""
 
 #: src/top/top_nls.c:192
 msgid "CPU Time"
@@ -2611,7 +2611,7 @@ msgstr "Время ЦП"
 #. Translation Hint: maximum 'TIME+' = 9
 #: src/top/top_nls.c:194
 msgid "TIME+"
-msgstr "TIME+"
+msgstr ""
 
 #: src/top/top_nls.c:195
 msgid "CPU Time, hundredths"
@@ -2620,7 +2620,7 @@ msgstr "Время ЦП, сотые"
 #. Translation Hint: maximum '%MEM' = 4
 #: src/top/top_nls.c:197
 msgid "%MEM"
-msgstr "%MEM"
+msgstr ""
 
 #: src/top/top_nls.c:198
 msgid "Memory Usage (RES)"
@@ -2629,7 +2629,7 @@ msgstr "Исп Памяти (RES)"
 #. Translation Hint: maximum 'VIRT' = 7
 #: src/top/top_nls.c:200
 msgid "VIRT"
-msgstr "VIRT"
+msgstr ""
 
 #: src/top/top_nls.c:201
 msgid "Virtual Image (KiB)"
@@ -2638,7 +2638,7 @@ msgstr "Вирт Размер (КиБ)"
 #. Translation Hint: maximum 'SWAP' = 6
 #: src/top/top_nls.c:203
 msgid "SWAP"
-msgstr "SWAP"
+msgstr ""
 
 #: src/top/top_nls.c:204
 msgid "Swapped Size (KiB)"
@@ -2647,7 +2647,7 @@ msgstr "Разм В Подк (КиБ)"
 #. Translation Hint: maximum 'RES' = 6
 #: src/top/top_nls.c:206
 msgid "RES"
-msgstr "RES"
+msgstr ""
 
 #: src/top/top_nls.c:207
 msgid "Resident Size (KiB)"
@@ -2656,7 +2656,7 @@ msgstr "Резид Размер (КиБ)"
 #. Translation Hint: maximum 'CODE' = 4
 #: src/top/top_nls.c:209
 msgid "CODE"
-msgstr "CODE"
+msgstr ""
 
 #: src/top/top_nls.c:210
 msgid "Code Size (KiB)"
@@ -2665,7 +2665,7 @@ msgstr "Размер Кода (КиБ)"
 #. Translation Hint: maximum 'DATA' = 7
 #: src/top/top_nls.c:212
 msgid "DATA"
-msgstr "DATA"
+msgstr ""
 
 #: src/top/top_nls.c:213
 msgid "Data+Stack (KiB)"
@@ -2674,7 +2674,7 @@ msgstr "Данные+Стек (КиБ)"
 #. Translation Hint: maximum 'SHR' = 6
 #: src/top/top_nls.c:215
 msgid "SHR"
-msgstr "SHR"
+msgstr ""
 
 #: src/top/top_nls.c:216
 msgid "Shared Memory (KiB)"
@@ -2683,7 +2683,7 @@ msgstr "Раздел Память (КиБ)"
 #. Translation Hint: maximum 'nMaj' = 4
 #: src/top/top_nls.c:218
 msgid "nMaj"
-msgstr "nMaj"
+msgstr ""
 
 #: src/top/top_nls.c:219
 msgid "Major Page Faults"
@@ -2692,7 +2692,7 @@ msgstr "Крупные Отказы Стр"
 #. Translation Hint: maximum 'nMin' = 4
 #: src/top/top_nls.c:221
 msgid "nMin"
-msgstr "nMin"
+msgstr ""
 
 #: src/top/top_nls.c:222
 msgid "Minor Page Faults"
@@ -2701,7 +2701,7 @@ msgstr "Незнач Отказы Стр"
 #. Translation Hint: maximum 'nDRT' = 4
 #: src/top/top_nls.c:224
 msgid "nDRT"
-msgstr "nDRT"
+msgstr ""
 
 #: src/top/top_nls.c:225
 msgid "Dirty Pages Count"
@@ -2710,7 +2710,7 @@ msgstr "Колич Грязных Стр"
 #. Translation Hint: maximum 'S' = 1
 #: src/top/top_nls.c:227
 msgid "S"
-msgstr "S"
+msgstr ""
 
 #: src/top/top_nls.c:228
 msgid "Process Status"
@@ -2719,7 +2719,7 @@ msgstr "Статус процесса"
 #. Translation Hint: maximum 'COMMAND' = variable
 #: src/top/top_nls.c:230
 msgid "COMMAND"
-msgstr "COMMAND"
+msgstr ""
 
 #: src/top/top_nls.c:231
 msgid "Command Name/Line"
@@ -2728,7 +2728,7 @@ msgstr "Имя Команды/Строка"
 #. Translation Hint: maximum 'WCHAN' = 10 +
 #: src/top/top_nls.c:233
 msgid "WCHAN"
-msgstr "WCHAN"
+msgstr ""
 
 #: src/top/top_nls.c:234
 msgid "Sleeping in Function"
@@ -2737,7 +2737,7 @@ msgstr "Ожидание В Функции"
 #. Translation Hint: maximum 'Flags' = 8
 #: src/top/top_nls.c:236
 msgid "Flags"
-msgstr "Flags"
+msgstr ""
 
 #: src/top/top_nls.c:237
 msgid "Task Flags <sched.h>"
@@ -2746,7 +2746,7 @@ msgstr "Флаги Задачи <sched.h>"
 #. Translation Hint: maximum 'CGROUPS' = variable
 #: src/top/top_nls.c:239
 msgid "CGROUPS"
-msgstr "CGROUPS"
+msgstr ""
 
 #: src/top/top_nls.c:240
 msgid "Control Groups"
@@ -2755,7 +2755,7 @@ msgstr "Контрольные Группы"
 #. Translation Hint: maximum 'SUPGIDS' = variable
 #: src/top/top_nls.c:242
 msgid "SUPGIDS"
-msgstr "SUPGIDS"
+msgstr ""
 
 #: src/top/top_nls.c:243
 msgid "Supp Groups IDs"
@@ -2764,7 +2764,7 @@ msgstr "ID Доп Групп"
 #. Translation Hint: maximum 'SUPGRPS' = variable
 #: src/top/top_nls.c:245
 msgid "SUPGRPS"
-msgstr "SUPGRPS"
+msgstr ""
 
 #: src/top/top_nls.c:246
 msgid "Supp Groups Names"
@@ -2773,7 +2773,7 @@ msgstr "Имена Доп Групп"
 #. Translation Hint: maximum 'TGID' = 5
 #: src/top/top_nls.c:248
 msgid "TGID"
-msgstr "TGID"
+msgstr ""
 
 #: src/top/top_nls.c:249
 msgid "Thread Group Id"
@@ -2782,7 +2782,7 @@ msgstr "ID Группы Потоков"
 #. Translation Hint: maximum 'OOMa' = 5
 #: src/top/top_nls.c:251
 msgid "OOMa"
-msgstr "OOMa"
+msgstr ""
 
 #: src/top/top_nls.c:252
 msgid "OOMEM Adjustment"
@@ -2791,7 +2791,7 @@ msgstr "Корректировка OOMEM"
 #. Translation Hint: maximum 'OOMs' = 4
 #: src/top/top_nls.c:254
 msgid "OOMs"
-msgstr "OOMs"
+msgstr ""
 
 #: src/top/top_nls.c:255
 msgid "OOMEM Score current"
@@ -2800,7 +2800,7 @@ msgstr "Текущая Оценка OOMEM"
 #. Translation Hint: maximum 'ENVIRON' = variable
 #: src/top/top_nls.c:257
 msgid "ENVIRON"
-msgstr "ENVIRON"
+msgstr ""
 
 #. Translation Hint: the abbreviation 'vars' below is shorthand for
 #. 'variables'
@@ -2811,7 +2811,7 @@ msgstr "Переменные Окружения"
 #. Translation Hint: maximum 'vMj' = 3
 #: src/top/top_nls.c:262
 msgid "vMj"
-msgstr "vMj"
+msgstr ""
 
 #: src/top/top_nls.c:263
 msgid "Major Faults delta"
@@ -2820,7 +2820,7 @@ msgstr "Дельта Серьёзн Ошиб"
 #. Translation Hint: maximum 'vMn' = 3
 #: src/top/top_nls.c:265
 msgid "vMn"
-msgstr "vMn"
+msgstr ""
 
 #: src/top/top_nls.c:266
 msgid "Minor Faults delta"
@@ -2829,7 +2829,7 @@ msgstr "Дельта Несерьёз Ошиб"
 #. Translation Hint: maximum 'USED' = 6
 #: src/top/top_nls.c:268
 msgid "USED"
-msgstr "USED"
+msgstr ""
 
 #: src/top/top_nls.c:269
 msgid "Res+Swap Size (KiB)"
@@ -2838,7 +2838,7 @@ msgstr "Рез+Подк Разм (КиБ)"
 #. Translation Hint: maximum 'nsIPC' = 10 +
 #: src/top/top_nls.c:271
 msgid "nsIPC"
-msgstr "nsIPC"
+msgstr ""
 
 #: src/top/top_nls.c:272
 msgid "IPC namespace Inode"
@@ -2847,7 +2847,7 @@ msgstr "Инод простр имен IPC"
 #. Translation Hint: maximum 'nsMNT' = 10 +
 #: src/top/top_nls.c:274
 msgid "nsMNT"
-msgstr "nsMNT"
+msgstr ""
 
 #: src/top/top_nls.c:275
 msgid "MNT namespace Inode"
@@ -2856,7 +2856,7 @@ msgstr "Инод простр имен MNT"
 #. Translation Hint: maximum 'nsNET' = 10 +
 #: src/top/top_nls.c:277
 msgid "nsNET"
-msgstr "nsNET"
+msgstr ""
 
 #: src/top/top_nls.c:278
 msgid "NET namespace Inode"
@@ -2865,7 +2865,7 @@ msgstr "Инод простр имен NET"
 #. Translation Hint: maximum 'nsPID' = 10 +
 #: src/top/top_nls.c:280
 msgid "nsPID"
-msgstr "nsPID"
+msgstr ""
 
 #: src/top/top_nls.c:281
 msgid "PID namespace Inode"
@@ -2874,7 +2874,7 @@ msgstr "Инод простр имен PID"
 #. Translation Hint: maximum 'nsUSER' = 10 +
 #: src/top/top_nls.c:283
 msgid "nsUSER"
-msgstr "nsUSER"
+msgstr ""
 
 #: src/top/top_nls.c:284
 msgid "USER namespace Inode"
@@ -2883,7 +2883,7 @@ msgstr "Инод прост имен USER"
 #. Translation Hint: maximum 'nsUTS' = 10 +
 #: src/top/top_nls.c:286
 msgid "nsUTS"
-msgstr "nsUTS"
+msgstr ""
 
 #: src/top/top_nls.c:287
 msgid "UTS namespace Inode"
@@ -2892,7 +2892,7 @@ msgstr "Инод простр имен UTS"
 #. Translation Hint: maximum 'LXC' = 8 +
 #: src/top/top_nls.c:289
 msgid "LXC"
-msgstr "LXC"
+msgstr ""
 
 #: src/top/top_nls.c:290
 msgid "LXC container name"
@@ -2901,7 +2901,7 @@ msgstr "Имя Контейнера LXC"
 #. Translation Hint: maximum 'RSan' = 6
 #: src/top/top_nls.c:292
 msgid "RSan"
-msgstr "RSan"
+msgstr ""
 
 #: src/top/top_nls.c:293
 msgid "RES Anonymous (KiB)"
@@ -2910,7 +2910,7 @@ msgstr "Анонимная RES (КиБ)"
 #. Translation Hint: maximum 'RSfd' = 6
 #: src/top/top_nls.c:295
 msgid "RSfd"
-msgstr "RSfd"
+msgstr ""
 
 #: src/top/top_nls.c:296
 msgid "RES File-based (KiB)"
@@ -2919,7 +2919,7 @@ msgstr "Файловая RES (КиБ)"
 #. Translation Hint: maximum 'RSlk' = 6
 #: src/top/top_nls.c:298
 msgid "RSlk"
-msgstr "RSlk"
+msgstr ""
 
 #: src/top/top_nls.c:299
 msgid "RES Locked (KiB)"
@@ -2928,7 +2928,7 @@ msgstr "Заблокир RES (KiB)"
 #. Translation Hint: maximum 'RSsh' = 6
 #: src/top/top_nls.c:301
 msgid "RSsh"
-msgstr "RSsh"
+msgstr ""
 
 #: src/top/top_nls.c:302
 msgid "RES Shared (KiB)"
@@ -2937,7 +2937,7 @@ msgstr "Общая RES (КиБ)"
 #. Translation Hint: maximum 'CGNAME' = variable
 #: src/top/top_nls.c:304
 msgid "CGNAME"
-msgstr "CGNAME"
+msgstr ""
 
 #: src/top/top_nls.c:305
 msgid "Control Group name"
@@ -2946,7 +2946,7 @@ msgstr "Имя Контр Группы"
 #. Translation Hint: maximum 'NU' = 2
 #: src/top/top_nls.c:307
 msgid "NU"
-msgstr "NU"
+msgstr ""
 
 #: src/top/top_nls.c:308
 msgid "Last Used NUMA node"
@@ -2955,7 +2955,7 @@ msgstr "Посл Исп NUMA-узел"
 #. Translation Hint: maximum 'LOGID' = 5 +
 #: src/top/top_nls.c:310
 msgid "LOGID"
-msgstr "LOGID"
+msgstr ""
 
 #: src/top/top_nls.c:311
 msgid "Login User Id"
@@ -2964,7 +2964,7 @@ msgstr "ID Вошедш Польз"
 #. Translation Hint: maximum 'EXE' = variable
 #: src/top/top_nls.c:313
 msgid "EXE"
-msgstr "EXE"
+msgstr ""
 
 #: src/top/top_nls.c:314
 msgid "Executable Path"
@@ -2977,7 +2977,7 @@ msgstr "Рез Пам (smaps), Киб"
 #. Translation Hint: maximum 'PSS' = 6
 #: src/top/top_nls.c:322
 msgid "PSS"
-msgstr "PSS"
+msgstr ""
 
 #: src/top/top_nls.c:323
 msgid "Proportion RSS,  KiB"
@@ -2986,7 +2986,7 @@ msgstr "Доля RSS,  Киб"
 #. Translation Hint: maximum 'PSan' = 6
 #: src/top/top_nls.c:325
 msgid "PSan"
-msgstr "PSan"
+msgstr ""
 
 #: src/top/top_nls.c:326
 msgid "Proportion Anon, KiB"
@@ -2995,7 +2995,7 @@ msgstr "Доля Анон, КиБ"
 #. Translation Hint: maximum 'PSfd' = 6
 #: src/top/top_nls.c:328
 msgid "PSfd"
-msgstr "PSfd"
+msgstr ""
 
 #: src/top/top_nls.c:329
 msgid "Proportion File, KiB"
@@ -3004,7 +3004,7 @@ msgstr "Доля Файл, КиБ"
 #. Translation Hint: maximum 'PSsh' = 6
 #: src/top/top_nls.c:331
 msgid "PSsh"
-msgstr "PSsh"
+msgstr ""
 
 #: src/top/top_nls.c:332
 msgid "Proportion Shrd, KiB"
@@ -3013,7 +3013,7 @@ msgstr "Доля Общ, КиБ"
 #. Translation Hint: maximum 'USS' = 6
 #: src/top/top_nls.c:334
 msgid "USS"
-msgstr "USS"
+msgstr ""
 
 #: src/top/top_nls.c:335
 msgid "Unique RSS, KiB"
@@ -3022,7 +3022,7 @@ msgstr "Уникальный RSS, КиБ"
 #. Translation Hint: maximum 'ioR' = 6
 #: src/top/top_nls.c:337
 msgid "ioR"
-msgstr "ioR"
+msgstr ""
 
 #: src/top/top_nls.c:338
 msgid "I/O Bytes Read"
@@ -3031,7 +3031,7 @@ msgstr "Прочитано Байт I/O"
 #. Translation Hint: maximum 'ioRop' = 5
 #: src/top/top_nls.c:340
 msgid "ioRop"
-msgstr "ioRop"
+msgstr ""
 
 #: src/top/top_nls.c:341
 msgid "I/O Read Operations"
@@ -3040,7 +3040,7 @@ msgstr "Операции Чтения I/O"
 #. Translation Hint: maximum 'ioW' = 6
 #: src/top/top_nls.c:343
 msgid "ioW"
-msgstr "ioW"
+msgstr ""
 
 #: src/top/top_nls.c:344
 msgid "I/O Bytes Written"
@@ -3049,7 +3049,7 @@ msgstr "Записано Байт I/O"
 #. Translation Hint: maximum 'ioWop' = 5
 #: src/top/top_nls.c:346
 msgid "ioWop"
-msgstr "ioWop"
+msgstr ""
 
 #: src/top/top_nls.c:347
 msgid "I/O Write Operations"
@@ -3058,7 +3058,7 @@ msgstr "Операции Записи I/O"
 #. Translation Hint: maximum 'AGID' = 5
 #: src/top/top_nls.c:349
 msgid "AGID"
-msgstr "AGID"
+msgstr ""
 
 #: src/top/top_nls.c:350
 msgid "Autogroup Identifier"
@@ -3067,7 +3067,7 @@ msgstr "Идентиф Автогруппы"
 #. Translation Hint: maximum 'AGNI' = 4
 #: src/top/top_nls.c:352
 msgid "AGNI"
-msgstr "AGNI"
+msgstr ""
 
 #: src/top/top_nls.c:353
 msgid "Autogroup Nice Value"
@@ -3076,7 +3076,7 @@ msgstr "Знач Nice Aвтогруппы"
 #. Translation Hint: maximum 'STARTED' = 7
 #: src/top/top_nls.c:355
 msgid "STARTED"
-msgstr "STARTED"
+msgstr ""
 
 #: src/top/top_nls.c:356
 msgid "Start Time from boot"
@@ -3085,7 +3085,7 @@ msgstr "Время С Момента Загр"
 #. Translation Hint: maximum 'ELAPSED' = 7
 #: src/top/top_nls.c:358
 msgid "ELAPSED"
-msgstr "ELAPSED"
+msgstr ""
 
 #: src/top/top_nls.c:359
 msgid "Elapsed Running Time"
@@ -3095,7 +3095,7 @@ msgstr "Истекш время работы"
 #: src/top/top_nls.c:361
 #, c-format
 msgid "%CUU"
-msgstr "%CUU"
+msgstr ""
 
 #: src/top/top_nls.c:362
 msgid "CPU Utilization"
@@ -3105,7 +3105,7 @@ msgstr "Использование ЦП"
 #: src/top/top_nls.c:364
 #, c-format
 msgid "%CUC"
-msgstr "%CUC"
+msgstr ""
 
 #: src/top/top_nls.c:365
 msgid "Utilization + child"
@@ -3114,7 +3114,7 @@ msgstr "Использ + потомок"
 #. Translation Hint: maximum 'nsCGROUP' = 10 +
 #: src/top/top_nls.c:367
 msgid "nsCGROUP"
-msgstr "nsCGROUP"
+msgstr ""
 
 #: src/top/top_nls.c:368
 msgid "CGRP namespace Inode"
@@ -3123,7 +3123,7 @@ msgstr "Инод прост имен CGRP"
 #. Translation Hint: maximum 'nsTIME' = 10 +
 #: src/top/top_nls.c:370
 msgid "nsTIME"
-msgstr "nsTIME"
+msgstr ""
 
 #: src/top/top_nls.c:371
 msgid "TIME namespace Inode"
@@ -3132,7 +3132,7 @@ msgstr "Инод прост имен TIME"
 #. Translation Hint: maximum 'CLS' = 3
 #: src/top/top_nls.c:373
 msgid "CLS"
-msgstr "CLS"
+msgstr ""
 
 #: src/top/top_nls.c:374
 msgid "Schedule Class"
@@ -3141,7 +3141,7 @@ msgstr "Класс Планирования"
 #. Translation Hint: maximum 'Docker' = 8 +
 #: src/top/top_nls.c:376
 msgid "Docker"
-msgstr "Docker"
+msgstr ""
 
 #: src/top/top_nls.c:377
 msgid "Docker container id"
@@ -3150,7 +3150,7 @@ msgstr "ID контейнера Docker"
 #. Translation Hint: maximum 'nFD' = 3
 #: src/top/top_nls.c:379
 msgid "nFD"
-msgstr "nFD"
+msgstr ""
 
 #: src/top/top_nls.c:380
 msgid "Number of Open Files"
@@ -3523,7 +3523,7 @@ msgstr "Задачи"
 #: src/top/top_nls.c:510
 #, c-format
 msgid "%Cpu(s):"
-msgstr "%Cpu(s):"
+msgstr ""
 
 #. Translation Hint: The following "word" is meant to represent a single processor
 #. and 'the Cp' prefix will be combined with a  core id: 'p', 'e' or 'u'
@@ -3531,7 +3531,7 @@ msgstr "%Cpu(s):"
 #: src/top/top_nls.c:514
 #, c-format
 msgid "%%Cp%c%-3d:"
-msgstr "%%Cp%c%-3d:"
+msgstr ""
 
 #. Translation Hint: The following word "another" must have 1 trailing space
 #: src/top/top_nls.c:516
@@ -3777,7 +3777,7 @@ msgstr "нет"
 #: src/top/top_nls.c:583
 #, c-format
 msgid "%%Node%-2d:"
-msgstr "%%Node%-2d:"
+msgstr ""
 
 #: src/top/top_nls.c:584
 #, c-format
@@ -4762,7 +4762,7 @@ msgstr "не удалось создать форк процесса"
 
 #: src/watch.c:985
 msgid "fdopen"
-msgstr "fdopen"
+msgstr ""
 
 #: src/watch.c:1214
 msgid "Could not parse interval from WATCH_INTERVAL"
@@ -4871,7 +4871,7 @@ msgstr "Не удалось отсортировать процессы по PID
 #: src/w.c:1132
 #, c-format
 msgid "%-*s TTY      "
-msgstr "%-*s TTY     "
+msgstr ""
 
 #: src/w.c:1134
 msgid "FROM"
