@@ -746,7 +746,9 @@ static void __attribute__ ((__noreturn__))
 	fputs(_(" -u, --no-current    ignore current process username\n"),out);
 	fputs(_(" -s, --short         short format\n"),out);
 	fputs(_(" -t, --terminal      show terminals\n"),out);
-	fputs(_(" -f, --from          show remote hostname field\n"),out);
+	fprintf(out,
+	      _(" -f, --from          toggle remote hostname field (default: %s)\n"),
+	      FROM_STRING);
 	fputs(_(" -o, --old-style     old style output\n"),out);
 	fputs(_(" -i, --ip-addr       display IP address instead of hostname (if possible)\n"), out);
 	fputs(_(" -p, --pids          show the PID(s) of processes in WHAT\n"), out);
@@ -807,7 +809,7 @@ void print_terminal_user(
     char ttypath[5 + UT_LINESIZE + 1] = "/dev/";
     char uname[UT_NAMESIZE + 1] = "?";
     int pids_length = 0;
-    utmp_t *u;
+    utmp_t *u = NULL;  // unnecessary, just avoid -Wmaybe-uninitialized
 
     hertz = procps_hertz_get();
     strncpy(ttypath + 5, ttyname, UT_LINESIZE);

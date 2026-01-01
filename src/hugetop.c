@@ -39,7 +39,6 @@
 #include <termios.h>
 #include <time.h>
 #include <unistd.h>
-#include <unistd.h>
 
 #include "c.h"
 #include "fileutils.h"
@@ -132,7 +131,7 @@ static void setup_hugepage()
 /*
  * term_size - set the globals 'cols' and 'rows' to the current terminal size
  */
-static void term_size(int unusused __attribute__ ((__unused__)))
+static void term_size(int unused __attribute__ ((__unused__)))
 {
 	struct winsize ws;
 
@@ -419,7 +418,7 @@ int main(int argc, char **argv)
 {
 	int is_tty = isatty(STDIN_FILENO);
 	int o;
-	unsigned short old_rows;
+	unsigned short old_rows = 0;
 
 	static const struct option longopts[] = {
 		{ "delay",      required_argument, NULL, 'd' },
@@ -514,7 +513,7 @@ int main(int argc, char **argv)
 		FD_SET(STDIN_FILENO, &readfds);
 		tv.tv_sec = delay;
 		tv.tv_usec = 0;
-		if (select(STDOUT_FILENO, &readfds, NULL, NULL, &tv) > 0) {
+		if (select(STDIN_FILENO + 1, &readfds, NULL, NULL, &tv) > 0) {
 			if (read(STDIN_FILENO, &c, 1) != 1)
 				break;
 			parse_input(c);

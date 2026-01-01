@@ -1,6 +1,6 @@
 /* top.h - Header file:         show Linux processes */
 /*
- * Copyright © 2002-2024 Jim Warner <james.warner@comcast.net
+ * Copyright © 2002-2025 Jim Warner <james.warner@comcast.net
  *
  * This file may be used subject to the terms and conditions of the
  * GNU Library General Public License Version 2, or any later version
@@ -61,6 +61,7 @@
 //#define SCROLLV_BY_1            /* when scrolling left/right do not move 8 */
 //#define STRINGCASENO            /* case insensitive compare/locate version */
 //#define TERMIOS_ONLY            /* use native input only (just limp along) */
+//#define THREADED_ALL            /* separate threads for the next 3 defines */
 //#define THREADED_CPU            /* separate background thread for cpu updt */
 //#define THREADED_MEM            /* separate background thread for mem updt */
 //#define THREADED_TSK            /* separate background thread for tsk updt */
@@ -74,8 +75,10 @@
 //#define TREE_VCPUOFF            /* a collapsed parent excludes child's cpu */
 //#define TREE_VPROMPT            /* pid collapse/expand prompt, vs. top row */
 //#define TREE_VWINALL            /* pid collapse/expand impacts all windows */
+//#define TTY_ABATE_NO            /* do NOT optimize (maybe discard) tty o/p */
 //#define USE_X_COLHDR            /* emphasize header vs. whole col, for 'x' */
 //#define WIDEN_COLUMN            /* base column widths on translated header */
+//#define WINS_RCF_TBL            /* table driven approach to rcfile changes */
 
 
 /*######  Notes, etc.  ###################################################*/
@@ -107,6 +110,14 @@ char *strcasestr(const char *haystack, const char *needle);
 #define STRCMP  strcmp
 #endif
 
+#ifdef THREADED_ALL
+#undef THREADED_CPU
+#undef THREADED_MEM
+#undef THREADED_TSK
+#define THREADED_CPU
+#define THREADED_MEM
+#define THREADED_TSK
+#endif
 
 /*######  Some Miscellaneous constants  ##################################*/
 
@@ -120,7 +131,7 @@ char *strcasestr(const char *haystack, const char *needle);
         /* Length of time a message is displayed and the duration
            of a 'priming' wait during library startup (in microseconds) */
 #define MSG_USLEEP  1250000
-#define LIB_USLEEP  100000
+#define LIB_USLEEP  200000
 
         /* Specific process id monitoring support (command line only) */
 #define MONPIDMAX  20
@@ -190,10 +201,6 @@ char *strcasestr(const char *haystack, const char *needle);
 #define kbd_CtrlP  '\020'
 #define kbd_CtrlR  '\022'
 #define kbd_CtrlU  '\025'
-
-        /* Special value in Pseudo_row to force an additional procs refresh
-           -- used at startup and for task/thread mode transitions */
-#define PROC_XTRA  -1
 
 
 /* #####  Enum's and Typedef's  ############################################ */
@@ -301,6 +308,7 @@ typedef          long long SIC_t;
 #define DEF_SCALES2  SK_Mb, SK_Kb
 #define ALT_WINFLGS  DEF_WINFLGS
 #define ALT_GRAPHS2  0, 0
+#define DEF_CORES_2  0, 0
 #else
 #define DEF_WINFLGS ( View_LOADAV | View_STATES | View_MEMORY | Show_CMDLIN \
    | Show_COLORS | Show_FOREST | Show_HIROWS | Show_IDLEPS | Show_JRNUMS | Show_TASKON \
@@ -309,6 +317,7 @@ typedef          long long SIC_t;
 #define DEF_SCALES2  SK_Gb, SK_Mb
 #define ALT_WINFLGS DEF_WINFLGS & ~Show_FOREST
 #define ALT_GRAPHS2  1, 1
+#define DEF_CORES_2  0, 0
 #endif
 
         /* These are used to direct wins_reflag */
@@ -323,21 +332,22 @@ enum warn_enum {
 
         /* This type helps support both a window AND the rcfile */
 typedef struct RCW_t {  // the 'window' portion of an rcfile
-   int    sortindx,               // sort field (represented as procflag)
-          winflags,               // 'view', 'show' and 'sort' mode flags
+   char   winname [WINNAMSIZ];    // name for the window, user changeable
+   FLG_t  fieldscur [PFLAGSSIZ];  // the fields for display & their order
+   int    winflags,               // 'view', 'show' and 'sort' mode flags
+          sortindx,               // sort field (represented as procflag)
           maxtasks,               // user requested maximum, 0 equals all
           graph_cpus,             // 't' - View_STATES supplementary vals
           graph_mems,             // 'm' - View_MEMORY supplememtary vals
           double_up,              // '4' - show multiple cpus on one line
           combine_cpus,           // '!' - keep combining additional cpus
-          core_types,             // '5' - show/filter P-core/E-core cpus
           summclr,                // a colors 'number' used for summ info
           msgsclr,                //             "           in msgs/pmts
           headclr,                //             "           in cols head
           taskclr,                //             "           in task data
-          task_xy;                //             "           for task x/y
-   char   winname [WINNAMSIZ];    // name for the window, user changeable
-   FLG_t  fieldscur [PFLAGSSIZ];  // the fields for display & their order
+          task_xy,                //             "           for task x/y
+          core_types,             // '5' - show/filter P-core/E-core cpus
+          cores_vs_cpus;          // '^' - show cores versus cpus/threads
 } RCW_t;
 
         /* This represents the complete rcfile */
@@ -458,8 +468,10 @@ typedef struct WIN_t {
 
 /*######  Some Miscellaneous Macro definitions  ##########################*/
 
-        /* Yield table size as 'int' */
+        /* Yield table size as 'int' and a stringify pair */
 #define MAXTBL(t)  (int)(sizeof(t) / sizeof(t[0]))
+#define MKSTR_arg(a)  #a
+#define MKSTR(a)  MKSTR_arg(a)
 
         /* A null-terminating strncpy, assuming strlcpy is not available.
            ( and assuming callers don't need the string length returned ) */
@@ -468,16 +480,17 @@ typedef struct WIN_t {
         /* Used to clear all or part of our Pseudo_screen */
 #define PSU_CLREOS(y) memset(&Pseudo_screen[ROWMAXSIZ*y], '\0', Pseudo_size-(ROWMAXSIZ*y))
 
-/*
- * The following three macros are used to 'inline' those portions of the
- * display process involved in formatting, while protecting against any
- * potential embedded 'millesecond delay' escape sequences.
- */
+#ifndef TTY_ABATE_NO
+ /*
+  * The following three macros are used to 'inline' those portions of the
+  * display process involved in formatting, while protecting against any
+  * potential embedded 'millesecond delay' escape sequences.
+  */
         /**  PUTT - Put to Tty (used in many places)
                . for temporary, possibly interactive, 'replacement' output
                . may contain ANY valid terminfo escape sequences
                . need NOT represent an entire screen row */
-#define PUTT(fmt,arg...) do { \
+ #define PUTT(fmt,arg...) do { \
       char _str[ROWMAXSIZ]; \
       snprintf(_str, sizeof(_str), fmt, ## arg); \
       putp(_str); \
@@ -488,7 +501,7 @@ typedef struct WIN_t {
                . may NOT contain cursor motion terminfo escapes
                . assumed to represent a complete screen ROW
                . subject to optimization, thus MAY be discarded */
-#define PUFF(fmt,arg...) do { \
+ #define PUFF(fmt,arg...) do { \
       char _str[ROWMAXSIZ]; \
       const int _len = snprintf(_str, sizeof(_str), fmt, ## arg); \
       if (Batch) { \
@@ -506,11 +519,26 @@ typedef struct WIN_t {
         /**  POOF - Pulled Out of Frame (used in only 1 place)
                . for output that is/was sent directly to the terminal
                  but would otherwise have been counted as a Pseudo_row */
-#define POOF(str,cap) do { \
+ #define POOF(str,cap) do { \
       putp(str); putp(cap); \
       Pseudo_screen[Pseudo_row * ROWMAXSIZ] = '\0'; \
       if (Pseudo_row + 1 < Screen_rows) ++Pseudo_row; \
    } while (0)
+#else
+ #define PUTT(fmt,arg...) do { \
+      char _str[ROWMAXSIZ]; \
+      snprintf(_str, sizeof(_str), fmt, ## arg); \
+      putp(_str); \
+   } while (0)
+ #define PUFF(fmt,arg...) do { \
+      char _str[ROWMAXSIZ]; \
+      snprintf(_str, sizeof(_str), fmt, ## arg); \
+      putp(_str); \
+   } while (0)
+ #define POOF(str,cap) do { \
+      putp(str); putp(cap); \
+   } while (0)
+#endif
 
         /* Orderly end, with any sort of message - see fmtmk */
 #define debug_END(s) { \
@@ -536,8 +564,9 @@ typedef struct WIN_t {
         // ( transitioned from 'char' to 'int' )
 #define RCF_XFORMED_ID  'k'
         // this next guy is incremented when columns change
+        // or anything is added to the RCW_t/RCF_t typedefs
         // ( to prevent older top versions from accessing )
-#define RCF_VERSION_ID  'm'
+#define RCF_VERSION_ID  'n'
 
 #define FLD_OFFSET  ( (int)'%' )
 #define FLD_ROWMAX  20
@@ -595,18 +624,18 @@ typedef struct WIN_t {
         /* The default values for the local config file */
 #define DEF_RCFILE { \
    RCF_VERSION_ID, 0, 1, DEF_DELAY, 0, { \
-   { EU_CPU, DEF_WINFLGS, 0, DEF_GRAPHS2, 1, 0, 0, \
-      COLOR_RED, COLOR_RED, COLOR_YELLOW, -1, COLOR_RED, \
-      "Def", DEF_FIELDS }, \
-   { EU_PID, ALT_WINFLGS, 0, ALT_GRAPHS2, 1, 0, 0, \
-      COLOR_CYAN, COLOR_CYAN, COLOR_WHITE, -1, COLOR_CYAN, \
-      "Job", JOB_FIELDS }, \
-   { EU_MEM, ALT_WINFLGS, 0, ALT_GRAPHS2, 1, 0, 0, \
-      COLOR_MAGENTA, COLOR_MAGENTA, COLOR_BLUE, -1, COLOR_MAGENTA, \
-      "Mem", MEM_FIELDS }, \
-   { EU_UEN, ALT_WINFLGS, 0, ALT_GRAPHS2, 1, 0, 0, \
-      COLOR_YELLOW, COLOR_YELLOW, COLOR_GREEN, -1, COLOR_YELLOW, \
-      "Usr", USR_FIELDS } \
+   { "Def", DEF_FIELDS, \
+     DEF_WINFLGS, EU_CPU, 0, DEF_GRAPHS2, 1, 0, \
+     COLOR_RED, COLOR_RED, COLOR_YELLOW, -1, COLOR_RED, DEF_CORES_2 }, \
+   { "Job", JOB_FIELDS, \
+     ALT_WINFLGS, EU_PID, 0, ALT_GRAPHS2, 1, 0, \
+     COLOR_CYAN, COLOR_CYAN, COLOR_WHITE, -1, COLOR_CYAN, DEF_CORES_2 }, \
+   { "Mem", MEM_FIELDS, \
+     ALT_WINFLGS, EU_MEM, 0, ALT_GRAPHS2, 1, 0, \
+     COLOR_MAGENTA, COLOR_MAGENTA, COLOR_BLUE, -1, COLOR_MAGENTA, DEF_CORES_2 }, \
+   { "Usr", USR_FIELDS, \
+     ALT_WINFLGS, EU_UEN, 0, ALT_GRAPHS2, 1, 0, \
+     COLOR_YELLOW, COLOR_YELLOW, COLOR_GREEN, -1, COLOR_YELLOW, DEF_CORES_2 } \
    }, 0, DEF_SCALES2, 0, 0 }
 
         /* Summary Lines specially formatted string(s) --
@@ -622,6 +651,9 @@ typedef struct WIN_t {
 #endif
 #if (LRGBUFSIZ < SCREENMAX)
 # error 'LRGBUFSIZ' must NOT be less than 'SCREENMAX'
+#endif
+#if defined(PRETENDECORE) && defined(CORE_TYPE_NO)
+# error 'PRETENDECORE' conflicts with 'CORE_TYPE_NO'
 #endif
 #if defined(TERMIOS_ONLY)
 # warning 'TERMIOS_ONLY' disables input recall and makes man doc incorrect
@@ -708,6 +740,7 @@ typedef struct WIN_t {
 //atic void         *cpus_refresh (void *unused);
 //atic void         *memory_refresh (void *unused);
 //atic void         *tasks_refresh (void *unused);
+//atic void          usleep_refresh (void);
 /*------  Inspect Other Output  ------------------------------------------*/
 //atic void          insp_cnt_nl (void);
 #ifndef INSP_OFFDEMO
@@ -731,7 +764,7 @@ typedef struct WIN_t {
 //atic int           cfg_xform (WIN_t *q, char *flds, const char *defs);
 //atic void          config_insp (FILE *fp, char *buf, size_t size);
 //atic void          config_osel (FILE *fp, char *buf, size_t size);
-//atic int           config_wins (FILE *fp, char *buf, int wix);
+//atic int           config_wins (FILE *fp, int wix);
 //atic const char   *configs_file (FILE *fp, const char *name, float *delay);
 //atic int           configs_path (const char *const fmts, ...);
 //atic void          configs_reads (void);
@@ -779,6 +812,7 @@ typedef struct WIN_t {
 //atic inline int    sum_see (const char *str, int nobuf);
 //atic int           sum_tics (struct stat_stack *this, const char *pfx, int nobuf);
 //atic int           sum_unify (struct stat_stack *this, int nobuf);
+//atic int           sum_versus (void);
 /*------  Secondary summary display support (summary_show helpers)  ------*/
 //atic void          do_cpus (void);
 //atic void          do_memory (void);
