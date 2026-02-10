@@ -1,7 +1,7 @@
 name: Sync from GitLab Upstream
 on:
   schedule:
-    - cron: '0 */6 * * *' # Every 6 hours
+    - cron: '0 0 * * *' # Every 6 hours
   workflow_dispatch:      # Allows you to click a button to sync manually
 
 jobs:
