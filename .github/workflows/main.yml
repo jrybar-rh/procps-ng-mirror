@@ -16,8 +16,11 @@ jobs:
 
       - name: Pull from GitLab and Push to GitHub
         run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/jrybar-rh/procps-ng-mirror.git
+          
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
           git remote add upstream https://gitlab.com/procps-ng/procps.git
-          git fetch upstream master
-          git checkout master
-          git merge upstream/master
+          git pull upstream master
           git push origin master
