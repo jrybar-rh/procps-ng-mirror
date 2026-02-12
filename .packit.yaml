@@ -1,0 +1,18 @@
+specfile_path: procps-ng.spec
+upstream_project_url: https://github.com/jrybar-rh/procps-ng-mirror
+upstream_package_name: procps-ng
+downstream_package_name: procps-ng
+
+actions:
+  # This makes Packit calculate the version based on git tags + commit count
+  post-upstream-clone: "git fetch --tags"
+
+jobs:
+  - job: copr_build
+    trigger: commit
+    branch: master
+    owner: "jrybar"
+    targets:
+      - fedora-all-x86_64
+    project: procps-ng-daily
+    preserve-project: True
