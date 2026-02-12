@@ -7,6 +7,17 @@ actions:
   # This makes Packit calculate the version based on git tags + commit count
   post-upstream-clone: "git fetch --tags"
 
+  get-current-version: "git describe --tags --abbrev=0 | sed 's/^v//'"
+
+  fix-spec-file:
+  # In order not to watch for procps version every time
+    - "bash -c 'sed -i \"s/^Version:.*/Version: $PACKIT_UPSTREAM_VERSION/\" fedora/procps-ng.spec'"
+    - "bash -c 'sed -i \"s/^Release:.*/Release: 100%{?dist}/\" fedora/procps-ng.spec'"
+
+  changelog-entry:
+    - "bash -c 'echo \"- Upstream snapshot sync at $(date +%Y%m%d)\"'"
+    - "bash -c 'git log --no-merges --pretty=format:\"- %s (%h)\" $(git describe --tags --abbrev=0)..HEAD'"
+
 jobs:
   - job: copr_build
     trigger: commit
