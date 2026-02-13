@@ -1,4 +1,4 @@
-specfile_path: procps-ng.spec
+specfile_path: fedora/procps-ng.spec
 upstream_project_url: https://github.com/jrybar-rh/procps-ng-mirror
 upstream_package_name: procps-ng
 downstream_package_name: procps-ng
