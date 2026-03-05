@@ -1,7 +1,7 @@
 /*
  * pidof.c - Utility for listing pids of running processes
  *
- * Copyright © 2013-2023 Craig Small <csmall@dropbear.xyz>
+ * Copyright © 2013-2026 Craig Small <csmall@dropbear.xyz>
  * Copyright © 2016-2023 Jim Warner <james.warner@comcast.net>
  * Copyright © 2015-2020 Jan Rybar <jrybar@redhat.com>
  * Copyright © 2013      Jaromir Capik <jcapik@redhat.com>
@@ -307,7 +307,7 @@ int main (int argc, char **argv)
 	int first_pid = 1;
 
 	const char *separator = " ";
-	const char *opts = "scnqxwtmo:S:?Vh";
+	const char *opts = "scd:nqxwtmo:S:?Vh";
 
 	static const struct option longopts[] = {
 		{"check-root", no_argument, NULL, 'c'},

@@ -3,7 +3,7 @@
  *
  * Copyright © 2023 Roman Žilka <roman.zilka@gmail.com>
  * Copyright © 2010-2023 Jim Warner <james.warner@comcast.net>
- * Copyright © 2015-2024 Craig Small <csmall@dropbear.xyz>
+ * Copyright © 2015-2026 Craig Small <csmall@dropbear.xyz>
  * Copyright © 2011-2012 Sami Kerola <kerolasa@iki.fi>
  * Copyright © 2002-2007 Albert Cahalan
  * Copyright © 1999      Mike Coleman <mkc@acm.org>.
@@ -109,6 +109,7 @@ static size_t command_len;
 static char *const *command_argv;
 static const char *shotsdir = "";
 
+#define MAIN_HEIGHT (height - (flags & WATCH_NOTITLE?0:HEADER_HEIGHT))
 
 WINDOW *mainwin;
 
@@ -515,7 +516,7 @@ static void screenshot(void) {
 
 	int yin, xout, tmpy, tmpx;
         getyx(mainwin, tmpy, tmpx);
-	for (int y=0; y<height; ++y) {
+	for (int y=0; y<tmpy; ++y) {
 		yin = mvwinnstr(mainwin, y, 0, buf, bufsize-1);
 		if (yin == ERR)  // screen resized
 			yin = 0;
@@ -695,11 +696,15 @@ static void output_lowheader(
         watch_usec_t span,
         uint8_t exitcode)
 {
+	char s[64];
+	int skip;
+
 	if (flags & WATCH_NOTITLE)
 		return;
 
-	char s[64];
-	int skip;
+	wmove(hdrwin, 1, 0);
+	wclrtoeol(hdrwin);
+
 	// TODO: gettext everywhere
 	if (span > USECS_PER_SEC * 24 * 60 * 60)
 		snprintf(s, sizeof(s), "%s >1 %s (%" PRIu8 ")", "in", "day", exitcode);
@@ -708,8 +713,6 @@ static void output_lowheader(
 		snprintf(s, sizeof(s), "%s <%.3f%s (%" PRIu8 ")", "in", 0.001, "s", exitcode);
 	else snprintf(s, sizeof(s), "%s %.3Lf%s (%" PRIu8 ")", "in", (long double)span/USECS_PER_SEC, "s", exitcode);
 
-	wmove(hdrwin, 1, 0);
-	wclrtoeol(hdrwin);
 
 #ifdef WITH_WATCH8BIT
 	wchar_t *ws;
@@ -901,7 +904,7 @@ static bool my_clrtobot(int y, int x)
 {
 	if (flags & WATCH_ALL_DIFF) {
 		bool changed = false;
-		while (y < height) {
+		while (y < MAIN_HEIGHT) {
 			while (x < width)
 				changed = display_char(y, x++, XL(' '), 1) || changed;
 			x = 0;
@@ -989,7 +992,7 @@ static uint8_t run_command(void)
 	int cwid, y, x;  // cwid = character width in terminal columns
 	screen_changed = false;
 
-	for (y = 0; y < height || (flags & WATCH_FOLLOW); ++y) {
+	for (y = 0; y < MAIN_HEIGHT || (flags & WATCH_FOLLOW); ++y) {
 		x = 0;
 		while (true) {
 			// x is where the next char will be put. When x==width only
@@ -1010,7 +1013,7 @@ static uint8_t run_command(void)
 			if (c == XEOF) {
                                 if (!(flags & WATCH_FOLLOW)) {
 				    screen_changed = my_clrtobot(y, x) || screen_changed;
-				    y = height - 1;
+				    y = MAIN_HEIGHT - 1;
                                 }
 				break;
 			}
@@ -1099,65 +1102,6 @@ static uint8_t run_command(void)
 	return 0x80 + (WTERMSIG(status) & 0x7f);
 }
 
-
-
-static void get_terminal_size(void)
-{
-	static bool height_fixed, width_fixed;
-
-	if (height_fixed && width_fixed)
-		return;
-
-	if (! width) {
-		width = WIDTH_FALLBACK;
-		height = HEIGHT_FALLBACK;
-		const char *env;
-		char *endptr;
-		long t;
-
-		env = getenv("LINES");
-		if (env && env[0] >= '0' && env[0] <= '9') {
-			errno = 0;
-			t = strtol(env, &endptr, 0);
-			if (! *endptr && ! errno && t > 0 && t <= INT_MAX) {
-				height_fixed = true;
-				height = t;
-			}
-		}
-		env = getenv("COLUMNS");
-		if (env && env[0] >= '0' && env[0] <= '9') {
-			errno = 0;
-			t = strtol(env, &endptr, 0);
-			if (! *endptr && ! errno && t > 0 && t <= INT_MAX) {
-				width_fixed = true;
-				width = t;
-			}
-		}
-	}
-
-	struct winsize w;
-	if (ioctl(STDERR_FILENO, TIOCGWINSZ, &w) == 0) {
-		if (! height_fixed && w.ws_row > 0) {
-			static char env_row_buf[24] = "LINES=";
-			height = w.ws_row & INT_MAX;
-			snprintf(env_row_buf+6, sizeof(env_row_buf)-6, "%d", height);
-			putenv(env_row_buf);
-		}
-		if (! width_fixed && w.ws_col > 0) {
-			static char env_col_buf[24] = "COLUMNS=";
-			width = w.ws_col & INT_MAX;
-			snprintf(env_col_buf+8, sizeof(env_col_buf)-8, "%d", width);
-			putenv(env_col_buf);
-		}
-	}
-        if (!(flags & WATCH_NOTITLE))
-            height -= 2;
-
-	assert(width > 0 && height > 0);
-}
-
-
-
 int main(int argc, char *argv[])
 {
 	int i;
@@ -1167,7 +1111,6 @@ int main(int argc, char *argv[])
 	uint8_t cmdexit;
 	struct timeval tosleep;
 	bool sleep_dontsleep, sleep_scrdumped, sleep_exit;
-        int height, width;
         WINDOW *hdrwin = NULL;
 	const struct option longopts[] = {
 		{"color", no_argument, 0, 'c'},
@@ -1320,7 +1263,6 @@ int main(int argc, char *argv[])
 	signal(SIGHUP, die);
 	signal(SIGWINCH, winch_handler);
 	/* Set up tty for curses use.  */
-	get_terminal_size();
 	initscr();  // succeeds or exit()s, may install sig handlers
         getmaxyx(stdscr, height, width);
         if (flags & WATCH_NOTITLE) {
@@ -1349,8 +1291,11 @@ int main(int argc, char *argv[])
 		set_ansi_attribute(-1, NULL);
 		if (screen_size_changed) {
 			screen_size_changed = false;  // "atomic" test-and-set
-			get_terminal_size();
-			resizeterm(height, width);
+                        endwin();
+                        refresh();
+                        getmaxyx(stdscr, height, width);
+                        resizeterm(height, width);
+                        wresize(mainwin, MAIN_HEIGHT, width);
 			first_screen = true;
 		}
 
@@ -1374,7 +1319,7 @@ int main(int argc, char *argv[])
 			if (flags & WATCH_ERREXIT) {
 				// TODO: Hard to see when there's cmd output around it. Add
 				// spaces or move to lowheader.
-				mvwaddstr(mainwin, height-1, 0, _("command exit with a non-zero status, press a key to exit"));
+				mvwaddstr(mainwin, MAIN_HEIGHT-1, 0, _("command exit with a non-zero status, press a key to exit"));
 				i = fcntl(STDIN_FILENO, F_GETFL);
 				if (i >= 0 && fcntl(STDIN_FILENO, F_SETFL, i|O_NONBLOCK) >= 0) {
 					while (getchar() != EOF) ;

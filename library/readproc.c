@@ -1,8 +1,8 @@
 /*
  * readproc - interface to process table
  *
- * Copyright © 2002-2023 Craig Small <csmall@dropbear.xyz>
- * Copyright © 2011-2023 Jim Warner <james.warner@comcast.net>
+ * Copyright © 2002-2025 Craig Small <csmall@dropbear.xyz>
+ * Copyright © 2011-2026 Jim Warner <james.warner@comcast.net>
  * Copyright © 1998-2010 Albert Cahalan
  * Copyright © 2010-2011 Jan Görig <jgorig@redhat.com>
  * Copyright © 1998      Michael K. Johnson
@@ -598,7 +598,7 @@ static int sd2proc (proc_t *restrict p) {
 static int stat2proc (const char *S, proc_t *restrict P) {
     char buf[64], raw[64];
     size_t num;
-    char *tmp;
+    const char *tmp;
 
 ENTER(0x160);
 
@@ -725,7 +725,8 @@ static void smaps2proc (const char *s, proc_t *restrict P) {
         /*    ProtectionKey                  "            */
         /*    VmFlags                        "            */
     };
-    char *head, *tail;
+    const char *head;
+    char *tail;
     int i;
 
     if (smaptab[0].slen < 0) {
@@ -1568,6 +1569,7 @@ static int listed_nextpid (PROCTAB *PT, proc_t *p) {
   pid_t pid = *(PT->pids)++;
   char path[PROCPATHLEN];
 
+  close_dirfd(&(PT->pidfd));
   if (pid > 0) {
     snprintf(path, PROCPATHLEN, "/proc/%d", pid);
     PT->pidfd = open(path, O_RDONLY | O_DIRECTORY);
@@ -1732,6 +1734,8 @@ void closeproc(PROCTAB *PT) {
     if (PT){
         if (PT->procfs) closedir(PT->procfs);
         if (PT->taskdir) closedir(PT->taskdir);
+        close_dirfd(&(PT->pidfd));
+        close_dirfd(&(PT->taskfd));
         free(PT);
     }
 }
