@@ -24,6 +24,6 @@ jobs:
     branch: master
     owner: "jrybar"
     targets:
-      - fedora-all-x86_64
+      - fedora-stable
     project: procps-ng-daily
-    preserve-project: True
+    preserve_project: True
